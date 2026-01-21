@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaai - Full Stack Developer & Creative Technologist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0066cc;
+            --light-blue: #e6f2ff;
+            --dark-blue: #003d7a;
+            --accent-blue: #00a8ff;
+            --text-dark: #1a1a1a;
+            --text-light: #666666;
+            --bg-light: #f8fafd;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 102, 204, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-blue);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0066cc 0%, #00a8ff 100%);
+            color: var(--white);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--white);
+            color: var(--primary-blue);
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* About Section */
+        .about {
+            padding: 4rem 2rem;
+            background: var(--bg-light);
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.2);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Skills Dashboard */
+        .skills {
+            padding: 4rem 2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-blue);
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.2);
+        }
+
+        .skill-card h4 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .skill-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 4rem 2rem;
+            background: var(--bg-light);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .portfolio-item {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-8px);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .portfolio-info {
+            padding: 1.5rem;
+        }
+
+        .portfolio-info h4 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .portfolio-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+            color: var(--white);
+            text-decoration: none;
+            transition: transform 0.3s;
+            font-weight: 600;
+        }
+
+        .social-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">KAAI</div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Full Stack Developer & Creative Technologist</h1>
+            <p>Crafting innovative digital experiences with cutting-edge technology</p>
+            <a href="#contact" class="cta-button">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Student Developer & AI Enthusiast</h3>
+                    <p>I'm a diploma student in Computer Science at Thika Technical University, passionate about exploring cutting-edge technologies and the modern, evolving world of artificial intelligence. My journey hasn't been through traditional classroom learning alone—it's been fueled by curiosity, self-learning, and a relentless drive to understand the latest innovations in tech.</p>
+                    <p>I'm deeply committed to staying ahead of the AI revolution and exploring how modern technologies shape our future. Self-taught in many areas, I've learned through hands-on projects, experimentation, and exploring the new world order of artificial intelligence. I thrive in solving complex problems with creative solutions and contributing to open-source communities.</p>
+                    <p>With a focus on innovation and user-centered design, I'm building skills across full-stack development, AI/ML, and digital transformation. I'm excited about the endless possibilities ahead and committed to continuous learning in this ever-evolving tech landscape.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1517694712201-8582011aefcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Student developer learning">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Dashboard -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <h2 class="section-title">Core Competencies</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h4>💻 Full Stack Development</h4>
+                    <p>Expertise in modern web technologies including React, Node.js, and cloud-native architectures. Building scalable and responsive applications.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>🤖 AI & Machine Learning</h4>
+                    <p>Passionate about leveraging AI and ML to solve real-world problems. Experience with neural networks and intelligent automation.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>🎨 Digital Design</h4>
+                    <p>Creative approach to UI/UX design with focus on user experience. Skilled in modern design tools and responsive design principles.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>🔧 Open Source</h4>
+                    <p>Active contributor to open-source projects. Strong believer in community-driven development and knowledge sharing.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>☁️ Cloud Architecture</h4>
+                    <p>Proficient in cloud platforms and DevOps practices. Building scalable infrastructure and implementing CI/CD pipelines.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>📊 Data Analytics</h4>
+                    <p>Transforming raw data into actionable insights. Experience with data visualization and business intelligence tools.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1677442d019cecf8e5c5aa7b3fb3da23a51a7552?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Project 1" class="portfolio-image">
+                    <div class="portfolio-info">
+                        <h4>AI-Powered Analytics Dashboard</h4>
+                        <p>Real-time data visualization platform with machine learning predictions and interactive dashboards.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Project 2" class="portfolio-image">
+                    <div class="portfolio-info">
+                        <h4>E-Commerce Platform</h4>
+                        <p>Full-stack web application with advanced search, recommendation engine, and seamless checkout experience.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1512941691920-25bda36e892d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Project 3" class="portfolio-image">
+                    <div class="portfolio-info">
+                        <h4>Mobile App Development</h4>
+                        <p>Native mobile applications with offline capabilities, real-time synchronization, and intuitive user interfaces.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="contact-content">
+                <p>I'm always interested in new opportunities, collaborations, and projects. Feel free to reach out and let's create something amazing together!</p>
+                <div class="social-links">
+                    <a href="https://linkedin.com" class="social-btn">in</a>
+                    <a href="https://github.com/denkaai" class="social-btn">gh</a>
+                    <a href="https://instagram.com/den_kaai" class="social-btn">📷</a>
+                    <a href="https://discord.com/users/denkaai" class="social-btn">💬</a>
+                    <a href="https://twitter.com" class="social-btn">𝕏</a>
+                    <a href="mailto:contact.denkaai@gmail.com" class="social-btn">✉</a>
+                </div>
+                <a href="mailto:contact.denkaai@gmail.com" class="cta-button">Send Me an Email</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Kaai. Full Stack Developer & Creative Technologist. All rights reserved.</p>
+    </footer>
+</body>
+</html>
