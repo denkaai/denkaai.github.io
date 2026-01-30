@@ -4,149 +4,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> denkaai full Stack Developer & Creative Technologist</title>
-    <!-- Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
+    <title>PesaFlow - Track Your Pesa, Grow Your Future</title>
+    <link rel="stylesheet" href="assets/css/expense-tracker.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body data-theme="dark">
+<body data-theme="light">
     <header>
         <div class="container">
-            <nav>
-                <a href="#" class="logo">KAAI</a>
-                <div class="nav-links">
-                    <a href="#about">About</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#portfolio">Portfolio</a>
-                    <a href="#contact">Contact</a>
-                    <button class="theme-toggle" aria-label="Toggle Theme">
-                        <i class="fas fa-sun"></i>
-                    </button>
-                </div>
-                <button class="mobile-menu-btn" aria-label="Toggle Menu">
-                    <i class="fas fa-bars"></i>
+            <div class="logo">
+                <i class="fas fa-coins"></i>
+                <span>PesaFlow</span>
+            </div>
+            <div class="header-controls">
+                <select id="currency-select">
+                    <option value="KSh">KSh</option>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                </select>
+                <button class="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
                 </button>
-            </nav>
+            </div>
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="container">
-                <h1 class="reveal">Hi, I'm <span class="gradient-text">denKaai</span></h1>
-                <p class="reveal">FULL STACK DEVELOPER & CREATIVE TECHNOLOGIST</p>
-                <p class="reveal" style="font-size: 1.1rem; margin-top: -1rem;">Crafting innovative digital experiences with cutting-edge technology</p>
-                <div class="cta-buttons reveal">
-                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                    <a href="#portfolio" class="btn btn-secondary">View Work</a>
+    <main class="container">
+        <!-- Expense Input Section -->
+        <section class="expense-input">
+            <h2>Add New Expense</h2>
+            <form id="expense-form">
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" min="0.01" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category">
+                        <option value="">Select Category</option>
+                        <option value="food">Food</option>
+                        <option value="transport">Transport</option>
+                        <option value="rent">Rent</option>
+                        <option value="utilities">Utilities</option>
+                        <option value="airtime-data">Airtime/Data</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="savings">Savings</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="custom-category">Or Create Custom Category</label>
+                    <input type="text" id="custom-category" placeholder="e.g., Groceries, Medical, Gifts">
+                </div>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="recurring">Recurring Expense</label>
+                    <select id="recurring">
+                        <option value="none">One-time</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="yearly">Yearly</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Expense</button>
+            </form>
+        </section>
+
+        <!-- Income Input Section -->
+        <section class="income-input">
+            <h2>Add Income</h2>
+            <form id="income-form">
+                <div class="form-group">
+                    <label for="income-amount">Amount</label>
+                    <input type="number" id="income-amount" min="0.01" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="income-source">Source</label>
+                    <input type="text" id="income-source" placeholder="e.g., Salary, Freelance" required>
+                </div>
+                <div class="form-group">
+                    <label for="income-date">Date</label>
+                    <input type="date" id="income-date" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Add Income</button>
+            </form>
+        </section>
+
+        <!-- Budget Setting Section -->
+        <section class="budget-setting">
+            <h2>Set Monthly Budgets</h2>
+            <div id="budget-list">
+                <!-- Budget items will be displayed here -->
+            </div>
+            <form id="budget-form">
+                <div class="form-group">
+                    <label for="budget-category">Category</label>
+                    <select id="budget-category">
+                        <option value="">Select Category</option>
+                        <option value="food">Food</option>
+                        <option value="transport">Transport</option>
+                        <option value="rent">Rent</option>
+                        <option value="utilities">Utilities</option>
+                        <option value="airtime-data">Airtime/Data</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="savings">Savings</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="budget-amount">Budget Amount</label>
+                    <input type="number" id="budget-amount" min="0.01" step="0.01" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Set Budget</button>
+            </form>
+        </section>
+
+        <!-- Filters and Search -->
+        <section class="filters">
+            <h2>Filters & Search</h2>
+            <div class="filter-controls">
+                <div class="form-group">
+                    <label for="search">Search Expenses</label>
+                    <input type="text" id="search" placeholder="Search by category, amount, or date">
+                </div>
+                <div class="form-group">
+                    <label for="start-date">Start Date</label>
+                    <input type="date" id="start-date">
+                </div>
+                <div class="form-group">
+                    <label for="end-date">End Date</label>
+                    <input type="date" id="end-date">
+                </div>
+                <button id="apply-filters" class="btn btn-secondary">Apply Filters</button>
+                <button id="clear-filters" class="btn btn-secondary">Clear Filters</button>
+            </div>
+        </section>
+
+        <!-- Summary Dashboard -->
+        <section class="summary">
+            <h2>Financial Summary</h2>
+            <div class="summary-cards">
+                <div class="card">
+                    <h3>Total Spent</h3>
+                    <p id="total-spent">0</p>
+                </div>
+                <div class="card">
+                    <h3>Total Income</h3>
+                    <p id="total-income">0</p>
+                </div>
+                <div class="card">
+                    <h3>Net Balance</h3>
+                    <p id="net-balance">0</p>
+                </div>
+                <div class="card">
+                    <h3>This Month</h3>
+                    <p id="monthly-spent">0</p>
+                </div>
+                <div class="card">
+                    <h3>Categories</h3>
+                    <p id="category-count">0</p>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="container">
-            <h2 class="section-title reveal">About Me</h2>
-            <div class="about-content reveal">
-                <div>
-                    <h3>STUDENT DEVELOPER & AI ENTHUSIAST</h3>
-                    <p>I'm a diploma student in Computer Science at Thika Technical University, passionate about exploring cutting-edge technologies and the modern, evolving world of artificial intelligence. My journey hasn't been through traditional classroom learning alone—it's been fueled by curiosity, self-learning, and a relentless drive to understand the latest innovations in tech.</p>
-                    <p style="margin-top: 1rem;">I'm deeply committed to staying ahead of the AI revolution and exploring how modern technologies shape our future. Self-taught in many areas, I've learned through hands-on projects, experimentation, and exploring the new world order of artificial intelligence.</p>
-                </div>
+        <!-- Data Visualization -->
+        <section class="visualization">
+            <h2>Data Visualization</h2>
+            <div class="chart-container">
+                <canvas id="expense-chart"></canvas>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="container">
-            <h2 class="section-title reveal">Core Competencies</h2>
-            <div class="skills-grid">
-                <div class="skill-card reveal">
-                    <i class="fas fa-code"></i>
-                    <h3>Full Stack Development</h3>
-                    <p>Expertise in modern web technologies including React, Node.js, and cloud-native architectures.</p>
-                </div>
-                <div class="skill-card reveal">
-                    <i class="fas fa-brain"></i>
-                    <h3>AI & Machine Learning</h3>
-                    <p>Passionate about leveraging AI and ML to solve real-world problems. Experience with neural networks.</p>
-                </div>
-                <div class="skill-card reveal">
-                    <i class="fas fa-palette"></i>
-                    <h3>Digital Design</h3>
-                    <p>Creative approach to UI/UX design with focus on user experience and responsive principles.</p>
-                </div>
-                <div class="skill-card reveal">
-                    <i class="fas fa-users"></i>
-                    <h3>Open Source</h3>
-                    <p>Active contributor to open-source projects. Strong believer in community-driven development.</p>
-                </div>
-                <div class="skill-card reveal">
-                    <i class="fas fa-cloud"></i>
-                    <h3>Cloud Architecture</h3>
-                    <p>Proficient in cloud platforms and DevOps practices. Building scalable infrastructure.</p>
-                </div>
-                <div class="skill-card reveal">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Data Analytics</h3>
-                    <p>Transforming raw data into actionable insights with visualization and BI tools.</p>
-                </div>
+        <!-- Category Breakdown -->
+        <section class="breakdown">
+            <h2>Category Breakdown</h2>
+            <div id="category-chart" class="chart-container">
+                <!-- Categories will be displayed here -->
             </div>
         </section>
 
-        <!-- Portfolio Section -->
-        <section id="portfolio" class="container">
-            <h2 class="section-title reveal">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card reveal">
-                    <div class="project-info">
-                        <h3>AI-Powered Analytics Dashboard</h3>
-                        <p>Real-time data visualization platform with machine learning predictions and interactive dashboards.</p>
-                        <a href="#" class="btn btn-secondary">View Project</a>
-                    </div>
-                </div>
-                <div class="project-card reveal">
-                    <div class="project-info">
-                        <h3>E-Commerce Platform</h3>
-                        <p>Full-stack web application with advanced search, recommendation engine, and seamless checkout.</p>
-                        <a href="#" class="btn btn-secondary">View Project</a>
-                    </div>
-                </div>
-                <div class="project-card reveal">
-                    <div class="project-info">
-                        <h3>Mobile App Development</h3>
-                        <p>Native mobile applications with offline capabilities and real-time synchronization.</p>
-                        <a href="#" class="btn btn-secondary">View Project</a>
-                    </div>
-                </div>
+        <!-- Insights Panel -->
+        <section class="insights">
+            <h2>Financial Insights</h2>
+            <div id="insights-list">
+                <!-- Insights will be displayed here -->
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="container">
-            <div class="contact-container reveal">
-                <h2 class="section-title">Let's Connect</h2>
-                <p>I'm always interested in new opportunities, collaborations, and projects. Feel free to reach out!</p>
-                <div class="social-links">
-                    <a href="https://linkedin.com/in/denkaai" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/denkaai" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://instagram.com/denkaai" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="mailto:contact@denkaai.com" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a>
-                </div>
-                <a href="mailto:contact@denkaai.com" class="btn btn-primary" style="margin-top: 2rem; display: inline-block;">Send Me an Email</a>
+        <!-- Expense List -->
+        <section class="expense-list">
+            <h2>Recent Expenses</h2>
+            <div id="expense-items">
+                <!-- Expenses will be listed here -->
+            </div>
+        </section>
+
+        <!-- Export and Backup -->
+        <section class="export-backup">
+            <h2>Export & Backup</h2>
+            <div class="export-controls">
+                <button id="export-csv" class="btn btn-primary">Export to CSV</button>
+                <button id="export-pdf" class="btn btn-primary">Export to PDF</button>
+                <button id="backup-data" class="btn btn-secondary">Backup Data</button>
+                <input type="file" id="restore-file" accept=".json" style="display: none;">
+                <button id="restore-data" class="btn btn-secondary">Restore Data</button>
             </div>
         </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Kaai. denkaai Full Stack Developer & Creative Technologist. All rights reserved.</p>
+            <p>&copy; 2026 Denkaai. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Custom JS -->
-    <script src="assets/js/script.js"></script>
+    <!-- Coin Animation Overlay -->
+    <div id="coin-animation" class="coin-overlay">
+        <div class="coin"><i class="fas fa-coins"></i></div>
+    </div>
+
+    <script src="assets/js/expense-tracker.js"></script>
 </body>
 </html>

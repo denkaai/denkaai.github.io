@@ -1,0 +1,576 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+:root {
+    /* Light Theme - Clean and Trustworthy */
+    --bg-color: #f5f7f2;
+    --text-color: #1a2e1a;
+    --card-bg: #ffffff;
+    --border-color: #d4e4d4;
+    --primary-color: #2d5a2d;
+    --accent-gold: #d4af37;
+    --secondary-color: #6b7f6b;
+    --success-color: #4a7c4a;
+    --warning-color: #b8860b;
+    --danger-color: #8b4513;
+    --shadow: 0 4px 20px rgba(45, 90, 45, 0.1);
+    --glow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+[data-theme="dark"] {
+    /* Dark Theme - Cinematic with Deep Greens and Glowing Accents */
+    --bg-color: #0a1a0a;
+    --text-color: #e8f5e8;
+    --card-bg: #1a2e1a;
+    --border-color: #2d5a2d;
+    --primary-color: #4a7c4a;
+    --accent-gold: #ffd700;
+    --secondary-color: #8fbc8f;
+    --success-color: #6b8e6b;
+    --warning-color: #daa520;
+    --danger-color: #cd853f;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    --glow: 0 0 30px rgba(255, 215, 0, 0.4);
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background-color: var(--card-bg);
+    box-shadow: var(--shadow);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.logo i {
+    margin-right: 0.5rem;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--primary-color);
+}
+
+/* Sections */
+section {
+    margin: 2rem 0;
+    padding: 2rem 0;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+/* Forms */
+.expense-input {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Buttons */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+}
+
+/* Summary Cards */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.card p {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Category Breakdown */
+.chart-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.category-item {
+    background-color: var(--card-bg);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-name {
+    font-weight: 600;
+}
+
+.category-amount {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.category-percentage {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+/* Insights */
+.insights {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.insight-item {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border-left: 4px solid;
+}
+
+.insight-item.success {
+    background-color: rgba(40, 167, 69, 0.1);
+    border-left-color: var(--success-color);
+}
+
+.insight-item.warning {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-left-color: var(--warning-color);
+}
+
+.insight-item.danger {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-left-color: var(--danger-color);
+}
+
+/* Expense List */
+.expense-list {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.expense-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.expense-item:last-child {
+    border-bottom: none;
+}
+
+.expense-details {
+    flex: 1;
+}
+
+.expense-amount {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.expense-category, .expense-date {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.delete-btn:hover {
+    color: #b02a37;
+}
+
+/* Premium Money Flow Animations */
+.coin-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    display: none;
+    overflow: hidden;
+}
+
+.coin {
+    position: absolute;
+    font-size: 2.5rem;
+    color: var(--accent-gold);
+    filter: drop-shadow(0 0 10px var(--accent-gold));
+    animation: coinFlow 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes coinFlow {
+    0% {
+        opacity: 1;
+        transform: scale(0.5) translateY(0) rotate(0deg);
+    }
+    20% {
+        opacity: 0.9;
+        transform: scale(1.2) translateY(-30px) rotate(90deg);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1) translateY(-80px) rotate(180deg);
+    }
+    80% {
+        opacity: 0.6;
+        transform: scale(0.8) translateY(-120px) rotate(270deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.3) translateY(-150px) rotate(360deg);
+    }
+}
+
+/* Money Particles Animation */
+.money-particles {
+    position: absolute;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(45deg, var(--accent-gold), var(--primary-color));
+    border-radius: 50%;
+    animation: particleFlow 2.5s ease-out forwards;
+}
+
+@keyframes particleFlow {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0) translateX(0);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(0.8) translateY(-40px) translateX(20px);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.2) translateY(-80px) translateX(40px);
+    }
+}
+
+/* Glowing Effects */
+.glow {
+    box-shadow: var(--glow);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: var(--glow);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Enhanced Button Animations */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-gold));
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+/* Footer */
+footer {
+    background-color: var(--card-bg);
+    padding: 2rem 0;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+footer p {
+    color: var(--secondary-color);
+}
+
+/* Header Controls */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#currency-select {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Income Input */
+.income-input {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+/* Budget Setting */
+.budget-setting {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.budget-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.budget-item:last-child {
+    border-bottom: none;
+}
+
+.budget-details {
+    flex: 1;
+}
+
+.budget-category {
+    font-weight: 600;
+}
+
+.budget-amount {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Filters */
+.filters {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.filter-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+/* Data Visualization */
+.visualization {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.chart-container {
+    max-width: 100%;
+    height: 400px;
+}
+
+/* Export and Backup */
+.export-backup {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.export-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Enhanced Expense Item */
+.expense-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.edit-btn {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.edit-btn:hover {
+    color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    section {
+        padding: 1rem 0;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .expense-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .delete-btn, .edit-btn {
+        align-self: flex-end;
+        margin-top: 0.5rem;
+    }
+
+    .header-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .filter-controls {
+        grid-template-columns: 1fr;
+    }
+
+    .export-controls {
+        flex-direction: column;
+    }
+
+    .budget-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
