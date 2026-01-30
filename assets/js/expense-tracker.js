@@ -48,6 +48,11 @@ const restoreFileInput = document.getElementById('restore-file');
 const currencySelect = document.getElementById('currency-select');
 const recurringSelect = document.getElementById('recurring');
 
+// M-Pesa and Monetization Elements
+const donateBtn = document.getElementById('donate-btn');
+const mpesaSmsInput = document.getElementById('mpesa-sms-input');
+const syncMpesaBtn = document.getElementById('sync-mpesa-btn');
+
 // Chart variable
 let expenseChart;
 
@@ -154,6 +159,9 @@ function setupEventListeners() {
     if (currencySelect) {
         currencySelect.addEventListener('change', updateUI);
     }
+
+    if (donateBtn) donateBtn.addEventListener('click', handleDonation);
+    if (syncMpesaBtn) syncMpesaBtn.addEventListener('click', syncMpesaTransaction);
 }
 
 // Initialize Chart
@@ -446,6 +454,69 @@ function restoreData(e) {
         }
     };
     reader.readAsText(file);
+}
+
+// Monetization: Handle Donation with Flutterwave
+function handleDonation() {
+    FlutterwaveCheckout({
+        public_key: "FLWPUBK_TEST-SANDBOX-SDK", // Replace with your actual Flutterwave public key
+        tx_ref: "PF-" + Date.now(),
+        amount: 500,
+        currency: "KES",
+        payment_options: "mpesa, card, ussd",
+        customer: {
+            email: "contact.denkaai@gmail.com",
+            name: "PesaFlow Supporter",
+        },
+        customizations: {
+            title: "Support PesaFlow",
+            description: "One-time payment to support PesaFlow development",
+            logo: "https://denkaai.github.io/assets/img/logo.png",
+        },
+        callback: function (data) {
+            console.log(data);
+            alert("Thank you for your support!");
+        },
+        onclose: function() {
+            // close modal
+        }
+    });
+}
+
+// M-Pesa Sync: Parse SMS and add expense
+function syncMpesaTransaction() {
+    const sms = mpesaSmsInput.value.trim();
+    if (!sms) return;
+
+    // Basic regex to extract amount and recipient from M-Pesa SMS
+    // Example: Ksh2,500.00 paid to ZUKU
+    const amountMatch = sms.match(/Ksh([\d,]+\.\d{2})/);
+    const recipientMatch = sms.match(/paid to ([^.]+)/) || sms.match(/sent to ([^.]+)/);
+
+    if (amountMatch) {
+        const amount = parseFloat(amountMatch[1].replace(/,/g, ''));
+        const category = recipientMatch ? recipientMatch[1].trim() : 'M-Pesa';
+        const date = new Date().toISOString().split('T')[0];
+
+        const expense = {
+            id: Date.now(),
+            amount,
+            category: category.toLowerCase(),
+            date,
+            recurring: 'none'
+        };
+
+        const expenses = getExpenses();
+        expenses.push(expense);
+        localStorage.setItem('expenses', JSON.stringify(expenses));
+
+        mpesaSmsInput.value = '';
+        updateUI();
+        playSuccessSound();
+        alert(`M-Pesa transaction of KSh ${amount} synced successfully!`);
+    } else {
+        alert('Could not parse M-Pesa SMS. Please ensure it follows the standard format.');
+    }
 }
 
 // Load and display expenses

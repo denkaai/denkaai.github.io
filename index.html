@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
 </head>
 <body data-theme="light">
     <header>
@@ -21,6 +22,9 @@
                 <span>PesaFlow</span>
             </div>
             <div class="header-controls">
+                <button id="donate-btn" class="btn btn-accent">
+                    <i class="fas fa-heart"></i> Support PesaFlow
+                </button>
                 <select id="currency-select">
                     <option value="KSh">KSh</option>
                     <option value="USD">USD</option>
@@ -147,6 +151,18 @@
             </div>
         </section>
 
+        <!-- M-Pesa Sync Section -->
+        <section class="mpesa-sync">
+            <h2>M-Pesa Sync</h2>
+            <div class="card">
+                <p>Paste your M-Pesa transaction SMS here to automatically add it as an expense.</p>
+                <textarea id="mpesa-sms-input" placeholder="Example: KLG512T4R5 Confirmed. Ksh2,500.00 paid to ZUKU..."></textarea>
+                <button id="sync-mpesa-btn" class="btn btn-secondary">
+                    <i class="fas fa-sync"></i> Sync Transaction
+                </button>
+            </div>
+        </section>
+
         <!-- Summary Dashboard -->
         <section class="summary">
             <h2>Financial Summary</h2>
@@ -220,8 +236,14 @@
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Denkaai. All rights reserved.</p>
+        <div class="container footer-content">
+            <div class="footer-info">
+                <p>&copy; 2026 Denkaai. All rights reserved.</p>
+                <p>Contact: <a href="mailto:contact.denkaai@gmail.com">contact.denkaai@gmail.com</a></p>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/denkaai" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            </div>
         </div>
     </footer>
 
