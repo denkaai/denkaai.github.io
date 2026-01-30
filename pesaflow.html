@@ -1,0 +1,259 @@
+<!-- updated 30 jan 2026 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PesaFlow - A powerful and simple expense tracker to manage your finances, set budgets, and gain financial insights.">
+    <meta name="keywords" content="expense tracker, finance manager, budget planner, savings tracker, PesaFlow">
+    <meta name="author" content="Denkaai">
+    <title>PesaFlow - Track Your Pesa, Grow Your Future</title>
+    <link rel="stylesheet" href="assets/css/expense-tracker.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+</head>
+<body data-theme="light">
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" style="color: inherit; text-decoration: none;">
+                    <i class="fas fa-coins"></i>
+                    <span>PesaFlow</span>
+                </a>
+            </div>
+            <div class="header-controls">
+                <a href="index.html#support" class="btn btn-accent" style="text-decoration: none;">
+                    <i class="fas fa-heart"></i> Support PesaFlow
+                </a>
+                <select id="currency-select">
+                    <option value="KSh">KSh</option>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                </select>
+                <button class="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Expense Input Section -->
+        <section class="expense-input">
+            <h2>Add New Expense</h2>
+            <form id="expense-form">
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" min="0.01" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category">
+                        <option value="">Select Category</option>
+                        <option value="food">Food</option>
+                        <option value="transport">Transport</option>
+                        <option value="rent">Rent</option>
+                        <option value="utilities">Utilities</option>
+                        <option value="airtime-data">Airtime/Data</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="savings">Savings</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="custom-category">Or Create Custom Category</label>
+                    <input type="text" id="custom-category" placeholder="e.g., Groceries, Medical, Gifts">
+                </div>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="recurring">Recurring Expense</label>
+                    <select id="recurring">
+                        <option value="none">One-time</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="yearly">Yearly</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Expense</button>
+            </form>
+        </section>
+
+        <!-- Income Input Section -->
+        <section class="income-input">
+            <h2>Add Income</h2>
+            <form id="income-form">
+                <div class="form-group">
+                    <label for="income-amount">Amount</label>
+                    <input type="number" id="income-amount" min="0.01" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="income-source">Source</label>
+                    <input type="text" id="income-source" placeholder="e.g., Salary, Freelance" required>
+                </div>
+                <div class="form-group">
+                    <label for="income-date">Date</label>
+                    <input type="date" id="income-date" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Add Income</button>
+            </form>
+        </section>
+
+        <!-- Budget Setting Section -->
+        <section class="budget-setting">
+            <h2>Set Monthly Budgets</h2>
+            <div id="budget-list">
+                <!-- Budget items will be displayed here -->
+            </div>
+            <form id="budget-form">
+                <div class="form-group">
+                    <label for="budget-category">Category</label>
+                    <select id="budget-category">
+                        <option value="">Select Category</option>
+                        <option value="food">Food</option>
+                        <option value="transport">Transport</option>
+                        <option value="rent">Rent</option>
+                        <option value="utilities">Utilities</option>
+                        <option value="airtime-data">Airtime/Data</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="savings">Savings</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="budget-amount">Budget Amount</label>
+                    <input type="number" id="budget-amount" min="0.01" step="0.01" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Set Budget</button>
+            </form>
+        </section>
+
+        <!-- Filters and Search -->
+        <section class="filters">
+            <h2>Filters & Search</h2>
+            <div class="filter-controls">
+                <div class="form-group">
+                    <label for="search">Search Expenses</label>
+                    <input type="text" id="search" placeholder="Search by category, amount, or date">
+                </div>
+                <div class="form-group">
+                    <label for="start-date">Start Date</label>
+                    <input type="date" id="start-date">
+                </div>
+                <div class="form-group">
+                    <label for="end-date">End Date</label>
+                    <input type="date" id="end-date">
+                </div>
+                <button id="apply-filters" class="btn btn-secondary">Apply Filters</button>
+                <button id="clear-filters" class="btn btn-secondary">Clear Filters</button>
+            </div>
+        </section>
+
+        <!-- M-Pesa Sync Section -->
+        <section class="mpesa-sync">
+            <h2>M-Pesa Sync</h2>
+            <div class="card">
+                <p>Paste your M-Pesa transaction SMS here to automatically add it as an expense.</p>
+                <textarea id="mpesa-sms-input" placeholder="Example: KLG512T4R5 Confirmed. Ksh2,500.00 paid to ZUKU..."></textarea>
+                <button id="sync-mpesa-btn" class="btn btn-secondary">
+                    <i class="fas fa-sync"></i> Sync Transaction
+                </button>
+            </div>
+        </section>
+
+        <!-- Summary Dashboard -->
+        <section class="summary">
+            <h2>Financial Summary</h2>
+            <div class="summary-cards">
+                <div class="card">
+                    <h3>Total Spent</h3>
+                    <p id="total-spent">0</p>
+                </div>
+                <div class="card">
+                    <h3>Total Income</h3>
+                    <p id="total-income">0</p>
+                </div>
+                <div class="card">
+                    <h3>Net Balance</h3>
+                    <p id="net-balance">0</p>
+                </div>
+                <div class="card">
+                    <h3>This Month</h3>
+                    <p id="monthly-spent">0</p>
+                </div>
+                <div class="card">
+                    <h3>Categories</h3>
+                    <p id="category-count">0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Visualization -->
+        <section class="visualization">
+            <h2>Data Visualization</h2>
+            <div class="chart-container">
+                <canvas id="expense-chart"></canvas>
+            </div>
+        </section>
+
+        <!-- Category Breakdown -->
+        <section class="breakdown">
+            <h2>Category Breakdown</h2>
+            <div id="category-chart" class="chart-container">
+                <!-- Categories will be displayed here -->
+            </div>
+        </section>
+
+        <!-- Insights Panel -->
+        <section class="insights">
+            <h2>Financial Insights</h2>
+            <div id="insights-list">
+                <!-- Insights will be displayed here -->
+            </div>
+        </section>
+
+        <!-- Expense List -->
+        <section class="expense-list">
+            <h2>Recent Expenses</h2>
+            <div id="expense-items">
+                <!-- Expenses will be listed here -->
+            </div>
+        </section>
+
+        <!-- Export and Backup -->
+        <section class="export-backup">
+            <h2>Export & Backup</h2>
+            <div class="export-controls">
+                <button id="export-csv" class="btn btn-primary">Export to CSV</button>
+                <button id="export-pdf" class="btn btn-primary">Export to PDF</button>
+                <button id="backup-data" class="btn btn-secondary">Backup Data</button>
+                <input type="file" id="restore-file" accept=".json" style="display: none;">
+                <button id="restore-data" class="btn btn-secondary">Restore Data</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-info">
+                <p>&copy; 2026 Denkaai. All rights reserved.</p>
+                <p>Contact: <a href="mailto:contact.denkaai@gmail.com">contact.denkaai@gmail.com</a></p>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/denkaai" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Coin Animation Overlay -->
+    <div id="coin-animation" class="coin-overlay">
+        <div class="coin"><i class="fas fa-coins"></i></div>
+    </div>
+
+    <script src="assets/js/expense-tracker.js"></script>
+</body>
+</html>

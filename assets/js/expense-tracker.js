@@ -456,31 +456,9 @@ function restoreData(e) {
     reader.readAsText(file);
 }
 
-// Monetization: Handle Donation with Flutterwave
+// Monetization: Redirect to Portfolio Support
 function handleDonation() {
-    FlutterwaveCheckout({
-        public_key: "FLWPUBK_TEST-SANDBOX-SDK", // Replace with your actual Flutterwave public key
-        tx_ref: "PF-" + Date.now(),
-        amount: 500,
-        currency: "KES",
-        payment_options: "mpesa, card, ussd",
-        customer: {
-            email: "contact.denkaai@gmail.com",
-            name: "PesaFlow Supporter",
-        },
-        customizations: {
-            title: "Support PesaFlow",
-            description: "One-time payment to support PesaFlow development",
-            logo: "https://denkaai.github.io/assets/img/logo.png",
-        },
-        callback: function (data) {
-            console.log(data);
-            alert("Thank you for your support!");
-        },
-        onclose: function() {
-            // close modal
-        }
-    });
+    window.location.href = 'index.html#support';
 }
 
 // M-Pesa Sync: Parse SMS and add expense
