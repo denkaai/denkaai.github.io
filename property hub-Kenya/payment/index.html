@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pay Rent | PropertyHub KE</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -34,12 +34,12 @@
 <body>
     <nav class="scrolled">
         <div class="container nav-content">
-            <a href="index.html" class="logo">
+            <a href="../" class="logo">
                 <div class="logo-icon"><i class="fas fa-building"></i></div>
                 PropertyHub KE
             </a>
             <div class="nav-links">
-                <a href="tenant-dashboard.html" class="btn btn-outline">Back to Dashboard</a>
+                <a href="../tenant/" class="btn btn-outline">Back to Dashboard</a>
             </div>
         </div>
     </nav>
@@ -93,12 +93,12 @@
             </div>
             <h2>Payment Successful!</h2>
             <p style="margin: 16px 0;">Your rent has been paid directly to the landlord. A receipt has been generated.</p>
-            <button class="btn btn-primary" style="width: 100%;" onclick="window.location.href='tenant-dashboard.html'">Return to Dashboard</button>
+            <button class="btn btn-primary" style="width: 100%;" onclick="window.location.href='../tenant/'">Return to Dashboard</button>
         </div>
     </div>
 
     <!-- Script for Flutterwave Checkout -->
     <script src="https://checkout.flutterwave.com/v3.js"></script>
-    <script src="js/payment.js" type="module"></script>
+    <script src="../js/payment.js" type="module"></script>
 </body>
 </html>

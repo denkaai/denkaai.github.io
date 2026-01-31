@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenant Dashboard | PropertyHub KE</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .tenant-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 32px;
+            margin-top: 30px;
+        }
+        
+        .unit-info-card {
+            padding: 40px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .countdown-timer {
+            text-align: center;
+            padding: 30px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 15px 0;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+        .history-table th, .history-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .dark-mode .history-table th, .dark-mode .history-table td { border-color: var(--border-dark); }
+
+        .banner {
+            padding: 20px 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-weight: 500;
+        }
+        .banner-warning { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--accent); color: var(--accent); }
+        .banner-danger { background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; color: #ef4444; }
+
+        .trust-banner {
+            margin-top: 24px;
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        @media (max-width: 992px) {
+            .tenant-grid { grid-template-columns: 1fr; }
+            .unit-info-card { flex-direction: column; text-align: center; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="scrolled">
+        <div class="container nav-content">
+            <a href="../" class="logo">
+                <div class="logo-icon"><i class="fas fa-building"></i></div>
+                PropertyHub KE
+            </a>
+            <div class="nav-links">
+                <span id="user-name" class="hide-mobile">Welcome, Tenant</span>
+                <button id="logout-btn" class="btn btn-outline" style="padding: 8px 16px;">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container" style="padding-top: 120px; padding-bottom: 60px;">
+        <!-- Status Banners -->
+        <div id="status-banner"></div>
+
+        <div id="no-unit-message" class="glass" style="padding: 60px; text-align: center; border-radius: 24px; display: none;">
+            <i class="fas fa-home fa-3x" style="color: var(--text-muted-light); margin-bottom: 20px;"></i>
+            <h2>No Unit Assigned</h2>
+            <p>You haven't been assigned to a property yet. Once your landlord assigns you, your dashboard will unlock.</p>
+        </div>
+
+        <div id="dashboard-content">
+            <div class="unit-info-card glass">
+                <div class="feature-icon" style="width: 80px; height: 80px; font-size: 2rem;">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div style="flex: 1;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+                        <div>
+                            <h1 id="unit-name">Unit ---</h1>
+                            <p id="property-name" style="font-size: 1.2rem; color: var(--text-muted-light);">Loading Property...</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="stat-label">Monthly Rent</div>
+                            <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary);" id="rent-amount">KES 0</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 40px; margin-top: 24px; border-top: 1px solid var(--border-light); padding-top: 20px;">
+                        <div>
+                            <div class="stat-label">Landlord</div>
+                            <div style="font-weight: 600;" id="landlord-name">---</div>
+                        </div>
+                        <div>
+                            <div class="stat-label">Lease Status</div>
+                            <div style="font-weight: 600; color: var(--primary);" id="lease-status">Active</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tenant-grid">
+                <div style="display: flex; flex-direction: column; gap: 32px;">
+                    <!-- Payment History -->
+                    <section class="glass" style="padding: 32px; border-radius: 24px;">
+                        <h3>Recent Payments</h3>
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Reference</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payment-history-body">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 40px; color: var(--text-muted-light);">No payments recorded.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <!-- Messages Section Placeholder -->
+                    <section class="glass" style="padding: 32px; border-radius: 24px;">
+                        <div class="section-header">
+                            <h3>Messages</h3>
+                            <span class="status-badge" style="background: var(--primary); color: white;" id="msg-count">0 New</span>
+                        </div>
+                        <div id="messages-container">
+                            <p style="color: var(--text-muted-light);">No new messages from your landlord.</p>
+                        </div>
+                    </section>
+                </div>
+
+                <aside>
+                    <div class="countdown-timer">
+                        <div class="stat-label" style="color: rgba(255,255,255,0.8);">Rent Due In</div>
+                        <div class="timer-display" id="due-timer">--d : --h</div>
+                        <p id="due-date">Due: ---</p>
+                    </div>
+
+                    <button id="pay-rent-btn" class="btn btn-primary" style="width: 100%; margin-top: 24px; padding: 20px; font-size: 1.2rem;">
+                        <i class="fas fa-credit-card"></i> Pay Rent Now
+                    </button>
+
+                    <button id="request-exit-btn" class="btn btn-outline" style="width: 100%; margin-top: 16px; color: #ef4444; border-color: rgba(239, 68, 68, 0.2);">
+                        <i class="fas fa-sign-out-alt"></i> Request Move-Out
+                    </button>
+
+                    <div class="trust-banner">
+                        <i class="fas fa-shield-alt"></i>
+                        <p><strong>Direct Payment</strong>. PropertyHub KE never holds your money. It goes straight to the landlord.</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/dashboard-tenant.js" type="module"></script>
+</body>
+</html>

@@ -23,11 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const fullname = document.getElementById('fullname').value;
+            const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const role = document.querySelector('input[name="role"]:checked').value;
 
-            const result = Store.register({ fullname, email, password, role });
+            const result = Store.register({ fullname, phone, email, password, role });
             if (result.success) {
                 Store.login(email, password);
                 redirectUser(role);
@@ -39,41 +40,36 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function redirectUser(role) {
+    // Determine the base path (handle root vs subfolders)
+    const isSubfolder = window.location.pathname.includes('/login/') || window.location.pathname.includes('/register/');
+    const prefix = isSubfolder ? '../' : '';
+
     if (role === 'landlord') {
-        window.location.href = 'landlord-dashboard.html';
+        window.location.href = prefix + 'landlord/';
     } else {
-        window.location.href = 'tenant-dashboard.html';
+        window.location.href = prefix + 'tenant/';
     }
 }
 
 // Social Login Logic
 window.socialLogin = (provider) => {
     console.log(`Initiating social login with: ${provider}`);
-    
-    // In a real startup product, this would trigger Firebase/Auth0/Supabase
-    // For the MVP, we simulate a successful login for demonstration
     alert(`Redirecting to ${provider} authentication...`);
     
-    // Simulating success after 1.5s
     setTimeout(() => {
         const mockSocialUser = {
             fullname: `Social User (${provider})`,
             email: `social.${provider}@example.com`,
-            role: 'tenant', // Default role for social login
-            id: 'social_' + Date.now()
+            phone: '0700000000',
+            role: 'tenant',
+            password: 'social-password'
         };
         
-        // Check if user exists, if not register
-        const users = JSON.parse(localStorage.getItem('ph_users')) || [];
-        let user = users.find(u => u.email === mockSocialUser.email);
-        
-        if (!user) {
-            users.push(mockSocialUser);
-            localStorage.setItem('ph_users', JSON.stringify(users));
-            user = mockSocialUser;
+        const result = Store.register(mockSocialUser);
+        if (result.success || result.message === 'Email already registered') {
+            Store.login(mockSocialUser.email, 'social-password');
+            const user = Store.getCurrentUser();
+            redirectUser(user.role);
         }
-        
-        localStorage.setItem('ph_current_user', JSON.stringify(user));
-        redirectUser(user.role);
     }, 1500);
 };

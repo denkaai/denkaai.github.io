@@ -4,10 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | PropertyHub KE</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        .social-login-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+        .dark-mode .btn-social {
+            background: rgba(255,255,255,0.05);
+            border-color: var(--border-dark);
+            color: white;
+        }
+        .btn-social:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-muted-light);
+            font-size: 0.8rem;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .divider:not(:empty)::before { margin-right: 15px; }
+        .divider:not(:empty)::after { margin-left: 15px; }
         .auth-container {
             min-height: 100vh;
             display: flex;
@@ -94,13 +136,19 @@
     <div class="auth-container">
         <div class="auth-card glass">
             <div class="auth-header">
-                <a href="index.html" class="logo" style="justify-content: center; margin-bottom: 20px;">
+                <a href="../" class="logo" style="justify-content: center; margin-bottom: 20px;">
                     <div class="logo-icon"><i class="fas fa-building"></i></div>
                     PropertyHub KE
                 </a>
                 <h2>Create Account</h2>
                 <p class="text-muted">Join the most trusted property platform</p>
             </div>
+            
+            <script>
+                window.socialLogin = (provider) => {
+                    alert(provider.charAt(0).toUpperCase() + provider.slice(1) + " login is not active in MVP. Please use Email/Password.");
+                }
+            </script>
             
             <div class="social-login-grid">
                 <button type="button" class="btn-social" onclick="socialLogin('google')" title="Sign up with Google">
@@ -139,6 +187,10 @@
                     <input type="text" id="fullname" class="form-control" placeholder="John Doe" required>
                 </div>
                 <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="0712345678" required>
+                </div>
+                <div class="form-group">
                     <label>Email Address</label>
                     <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
                 </div>
@@ -150,11 +202,11 @@
             </form>
             
             <div class="auth-footer">
-                <p>Already have an account? <a href="login.html">Sign In</a></p>
+                <p>Already have an account? <a href="../login/">Sign In</a></p>
             </div>
         </div>
     </div>
 
-    <script src="js/auth.js" type="module"></script>
+    <script src="../js/auth.js" type="module"></script>
 </body>
 </html>
