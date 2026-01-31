@@ -2,50 +2,49 @@ import Store from './store.js';
 import { playSuccessSound, triggerCoinAnimation } from './notifications.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ... existing code ...
     const user = Store.getCurrentUser();
     if (!user || user.role !== 'tenant') {
-        window.location.href = 'login.html';
+        window.location.href = '../login/';
         return;
     }
 
-    const data = getPaymentData(user.email);
-    if (!data) {
-        alert('No payment due');
-        window.location.href = 'tenant-dashboard.html';
+    const tenantInfo = Store.getTenantInfo(user.id);
+    if (!tenantInfo || !tenantInfo.unit_id) {
+        alert('No unit assigned or payment due');
+        window.location.href = '../tenant/';
         return;
     }
+
+    const unit = Store.getData(Store.UNITS).find(u => u.id === tenantInfo.unit_id);
+    const property = Store.getData(Store.PROPERTIES).find(p => p.id === unit.property_id);
+    const landlord = Store.getData(Store.USERS).find(u => u.id === tenantInfo.landlord_id);
 
     // Update UI
-    document.getElementById('pay-prop').textContent = data.prop.name;
-    document.getElementById('pay-unit').textContent = data.unit.number;
-    document.getElementById('pay-amount').textContent = `KES ${parseFloat(data.unit.rent).toLocaleString()}`;
+    document.getElementById('pay-prop').textContent = property.name;
+    document.getElementById('pay-unit').textContent = unit.unit_number;
+    document.getElementById('pay-landlord').textContent = landlord ? landlord.name : 'Unknown';
+    document.getElementById('pay-amount').textContent = `KES ${parseFloat(unit.rent_amount).toLocaleString()}`;
 
     document.getElementById('start-payment-btn').addEventListener('click', () => {
-        makePayment(user, data);
+        makePayment(user, property, unit);
     });
 });
 
-function getPaymentData(email) {
-    const allProperties = JSON.parse(localStorage.getItem('ph_properties')) || [];
-    for (const prop of allProperties) {
-        const unit = prop.units.find(u => u.tenantEmail === email);
-        if (unit) return { prop, unit };
-    }
-    return null;
-}
-
-function makePayment(user, data) {
+function makePayment(user, property, unit) {
     // Flutterwave Standard Checkout
     FlutterwaveCheckout({
         public_key: "FLWPUBK_TEST-515a458992f085732168923058863f58-X", // Example test key
         tx_ref: "PH-" + Date.now(),
-        amount: data.unit.rent,
+        amount: unit.rent_amount,
         currency: "KES",
         payment_options: "card, mpesa, account",
         callback: function (payment) {
             if (payment.status === "successful") {
-                savePayment(user.email, payment.amount, payment.tx_ref);
+                Store.addPayment({
+                    tenant_id: user.id,
+                    unit_id: unit.id,
+                    amount: payment.amount
+                });
                 playSuccessSound();
                 triggerCoinAnimation();
                 document.getElementById('success-modal').classList.add('active');
@@ -56,19 +55,8 @@ function makePayment(user, data) {
         },
         customizations: {
             title: "PropertyHub KE",
-            description: `Rent for ${data.prop.name} - Unit ${data.unit.number}`,
+            description: `Rent for ${property.name} - Unit ${unit.unit_number}`,
             logo: "https://via.placeholder.com/150",
         },
     });
-}
-
-function savePayment(email, amount, ref) {
-    const payments = JSON.parse(localStorage.getItem('ph_payments')) || [];
-    payments.push({
-        tenantEmail: email,
-        amount: amount,
-        reference: ref,
-        timestamp: new Date().toISOString()
-    });
-    localStorage.setItem('ph_payments', JSON.stringify(payments));
 }
