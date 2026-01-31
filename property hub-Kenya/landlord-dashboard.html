@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landlord Dashboard | PropertyHub KE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        .sidebar {
+            width: 280px;
+            height: calc(100vh - 80px);
+            position: fixed;
+            left: 0;
+            padding: 30px;
+            border-right: 1px solid var(--border-light);
+        }
+        .dark-mode .sidebar { border-color: var(--border-dark); }
+        
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            padding: 24px;
+            border-radius: 20px;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 10px 0;
+            color: var(--primary);
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .dark-mode .stat-label { color: var(--text-muted-dark); }
+
+        .dashboard-section {
+            margin-bottom: 40px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .property-card {
+            padding: 24px;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+        }
+        .dark-mode .property-card { border-color: var(--border-dark); }
+
+        .unit-list {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .unit-list th, .unit-list td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .dark-mode .unit-list th, .dark-mode .unit-list td { border-color: var(--border-dark); }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status-paid { background: rgba(0, 137, 102, 0.1); color: var(--primary); }
+        .status-late { background: rgba(212, 175, 55, 0.1); color: var(--accent); }
+        .status-unpaid { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 24px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="scrolled">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fas fa-building"></i></div>
+                PropertyHub KE
+            </a>
+            <div class="nav-links">
+                <span id="user-name">Welcome, Landlord</span>
+                <button id="logout-btn" class="btn btn-outline" style="padding: 8px 16px;">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <div class="sidebar glass">
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <a href="#" class="btn btn-primary" style="justify-content: flex-start;"><i class="fas fa-th-large"></i> Overview</a>
+                <a href="#" class="btn btn-outline" style="justify-content: flex-start; border: none; color: inherit;"><i class="fas fa-building"></i> Properties</a>
+                <a href="#" class="btn btn-outline" style="justify-content: flex-start; border: none; color: inherit;"><i class="fas fa-users"></i> Tenants</a>
+                <a href="#" class="btn btn-outline" style="justify-content: flex-start; border: none; color: inherit;"><i class="fas fa-history"></i> Payments</a>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <div class="stats-grid">
+                <div class="stat-card glass">
+                    <div class="stat-label">Expected Rent</div>
+                    <div class="stat-value" id="expected-rent">KES 0</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-label">Collected</div>
+                    <div class="stat-value" id="collected-rent">KES 0</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-label">Outstanding</div>
+                    <div class="stat-value" id="outstanding-rent" style="color: #ef4444;">KES 0</div>
+                </div>
+            </div>
+
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Your Properties</h2>
+                    <button class="btn btn-primary" onclick="openModal('property-modal')"><i class="fas fa-plus"></i> Add Property</button>
+                </div>
+                <div id="properties-container" class="property-grid">
+                    <!-- Properties will be injected here -->
+                    <div class="property-card glass" style="grid-column: 1/-1; text-align: center; padding: 60px;">
+                        <i class="fas fa-building fa-3x" style="color: var(--text-muted-light); margin-bottom: 20px;"></i>
+                        <p>No properties added yet. Start by adding your first apartment or flat.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Property Modal -->
+    <div id="property-modal" class="modal">
+        <div class="modal-content glass">
+            <h3>Add New Property</h3>
+            <form id="add-property-form" style="margin-top: 20px;">
+                <div class="form-group">
+                    <label>Property Name</label>
+                    <input type="text" id="prop-name" class="form-control" placeholder="e.g. Emerald Heights" required>
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="prop-location" class="form-control" placeholder="e.g. Kilimani, Nairobi" required>
+                </div>
+                <div style="display: flex; gap: 16px; margin-top: 30px;">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('property-modal')" style="flex: 1;">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save Property</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Unit Modal will be added later or handled via JS -->
+
+    <script src="js/dashboard-landlord.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropertyHub KE | Smart Rent. Clear Living.</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Landing Page Specific Styles */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted-light);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .dark-mode .hero p {
+            color: var(--text-muted-dark);
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        /* Animated Elements Mockup */
+        .hero-visual {
+            height: 400px;
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .building-box {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 350px;
+            background: var(--primary);
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: 20px;
+            box-shadow: 0 20px 50px rgba(0, 137, 102, 0.2);
+        }
+
+        .window {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        .windows-row {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        /* Coin Animation placeholder */
+        .coin {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+            animation: flowTowards 3s infinite;
+        }
+
+        @keyframes flowTowards {
+            0% { transform: translate(-200px, 0) scale(0); opacity: 0; }
+            50% { transform: translate(-100px, -50px) scale(1.2); opacity: 1; }
+            100% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+        }
+
+        .features {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .feature-card {
+            padding: 40px;
+            border-radius: 24px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(0, 137, 102, 0.1);
+            color: var(--primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 24px;
+        }
+
+        .trust-section {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(rgba(0, 137, 102, 0.05), transparent);
+        }
+
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fas fa-building"></i></div>
+                PropertyHub KE
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <label class="theme-switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider"></span>
+                </label>
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Manage Property. Track Rent.<br>Pay with Confidence.</h1>
+            <p>PropertyHub KE helps landlords and tenants manage properties, track rent, and make direct payments transparently — all in one smart platform.</p>
+            <div class="hero-actions">
+                <a href="register.html" class="btn btn-primary">Get Started Now</a>
+                <a href="login.html" class="btn btn-outline">Landlord Portal</a>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="coin" style="animation-delay: 0s;"><i class="fas fa-coins"></i></div>
+                <div class="coin" style="animation-delay: 1s; top: 100px; left: 30%;"><i class="fas fa-money-bill-wave"></i></div>
+                <div class="coin" style="animation-delay: 2s; top: 50px; right: 30%;"><i class="fas fa-coins"></i></div>
+                <div class="building-box">
+                    <div class="windows-row"><div class="window"></div><div class="window"></div></div>
+                    <div class="windows-row"><div class="window"></div><div class="window"></div></div>
+                    <div class="windows-row"><div class="window"></div><div class="window"></div></div>
+                    <div class="windows-row"><div class="window"></div><div class="window"></div></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose PropertyHub KE?</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card glass">
+                    <div class="feature-icon"><i class="fas fa-tasks"></i></div>
+                    <h3>Smart Management</h3>
+                    <p>Effortlessly manage properties and units with intuitive status indicators.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Automatic Tracking</h3>
+                    <p>Real-time rent time tracking with days remaining and overdue indicators.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <h3>Direct Payments</h3>
+                    <p>Tenants pay landlords directly via Flutterwave. No middleman holding funds.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon"><i class="fas fa-receipt"></i></div>
+                    <h3>Instant Receipts</h3>
+                    <p>Get instant downloadable rent receipts and a clear payment history.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust-section">
+        <div class="container glass" style="padding: 60px; border-radius: 30px;">
+            <div class="feature-icon" style="margin-bottom: 30px;"><i class="fas fa-shield-alt fa-2x"></i></div>
+            <h2>Transparency You Can Trust</h2>
+            <p style="max-width: 800px; margin: 20px auto; font-size: 1.2rem;">PropertyHub KE does not hold rent money. All payments go directly from tenants to landlords, ensuring trust, clarity, and accountability.</p>
+            <h3 style="margin-top: 40px; color: var(--primary);">Built for Kenya. Designed for the Future.</h3>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <a href="index.html" class="logo" style="color: white;">
+                    <div class="logo-icon" style="background: white; color: var(--primary);"><i class="fas fa-building"></i></div>
+                    PropertyHub KE
+                </a>
+                <p>Smart Rent. Clear Living.</p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 PropertyHub KE. Designed and Developed by Denkai (D-E-N-K-A-A-I).</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Rent | PropertyHub KE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .payment-container {
+            max-width: 600px;
+            margin: 120px auto;
+            padding: 40px;
+            border-radius: 24px;
+        }
+        .payment-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .payment-details {
+            margin-bottom: 30px;
+            padding: 24px;
+            border-radius: 16px;
+            background: rgba(0, 137, 102, 0.05);
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="scrolled">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fas fa-building"></i></div>
+                PropertyHub KE
+            </a>
+            <div class="nav-links">
+                <a href="tenant-dashboard.html" class="btn btn-outline">Back to Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="payment-container glass">
+        <div class="payment-header">
+            <i class="fas fa-lock fa-3x" style="color: var(--primary); margin-bottom: 20px;"></i>
+            <h2>Secure Checkout</h2>
+            <p class="text-muted">Complete your rent payment directly to the landlord.</p>
+        </div>
+
+        <div class="payment-details">
+            <div class="detail-row">
+                <span>Property:</span>
+                <strong id="pay-prop">Emerald Heights</strong>
+            </div>
+            <div class="detail-row">
+                <span>Unit:</span>
+                <strong id="pay-unit">A1</strong>
+            </div>
+            <div class="detail-row">
+                <span>Landlord:</span>
+                <strong id="pay-landlord">Admin</strong>
+            </div>
+            <hr style="margin: 16px 0; border: none; border-top: 1px solid var(--border-light);">
+            <div class="detail-row" style="font-size: 1.25rem;">
+                <span>Total Amount:</span>
+                <strong id="pay-amount" style="color: var(--primary);">KES 0</strong>
+            </div>
+        </div>
+
+        <div class="trust-banner" style="margin-bottom: 30px; background: rgba(0, 137, 102, 0.05); border-color: var(--primary); color: var(--primary); padding: 16px; border-radius: 12px; display: flex; gap: 12px;">
+            <i class="fas fa-shield-check"></i>
+            <p><strong>PropertyHub KE</strong> does not hold your money. Your payment goes directly to the landlord via Flutterwave.</p>
+        </div>
+
+        <button id="start-payment-btn" class="btn btn-primary" style="width: 100%; padding: 20px; font-size: 1.2rem;">
+            Pay with Flutterwave
+        </button>
+
+        <p style="text-align: center; margin-top: 20px; font-size: 0.8rem; color: var(--text-muted-light);">
+            Protected by Flutterwave 256-bit encryption.
+        </p>
+    </div>
+
+    <!-- Payment Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content glass" style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 2rem;">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2>Payment Successful!</h2>
+            <p style="margin: 16px 0;">Your rent has been paid directly to the landlord. A receipt has been generated.</p>
+            <button class="btn btn-primary" style="width: 100%;" onclick="window.location.href='tenant-dashboard.html'">Return to Dashboard</button>
+        </div>
+    </div>
+
+    <!-- Script for Flutterwave Checkout -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script src="js/payment.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+:root {
+    /* Colors - Light Mode */
+    --primary: #008966; /* Emerald Green */
+    --primary-light: #00a87d;
+    --secondary: #121212; /* Charcoal Black */
+    --accent: #D4AF37; /* Soft Gold */
+    --bg-light: #f8fafc;
+    --card-bg-light: rgba(255, 255, 255, 0.7);
+    --text-light: #1e293b;
+    --text-muted-light: #64748b;
+    --border-light: rgba(226, 232, 240, 0.8);
+
+    /* Colors - Dark Mode */
+    --bg-dark: #0f172a;
+    --card-bg-dark: rgba(30, 41, 59, 0.7);
+    --text-dark: #f1f5f9;
+    --text-muted-dark: #94a3b8;
+    --border-dark: rgba(51, 65, 85, 0.8);
+
+    /* Transitions */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    transition: var(--transition);
+    overflow-x: hidden;
+}
+
+body.dark-mode {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+/* Glassmorphism Utility */
+.glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-light);
+    background: var(--card-bg-light);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.dark-mode .glass {
+    border: 1px solid var(--border-dark);
+    background: var(--card-bg-dark);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 137, 102, 0.3);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background: rgba(0, 137, 102, 0.05);
+    transform: translateY(-2px);
+}
+
+.dark-mode .btn-outline {
+    color: var(--primary-light);
+    border-color: var(--primary-light);
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Navbar */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 0;
+    transition: var(--transition);
+}
+
+nav.scrolled {
+    padding: 12px 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.dark-mode nav.scrolled {
+    background: rgba(15, 23, 42, 0.8);
+    border-bottom: 1px solid var(--border-dark);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.dark-mode .nav-links a {
+    color: var(--text-dark);
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+/* Footer */
+footer {
+    padding: 60px 0 30px;
+    background: var(--secondary);
+    color: white;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 40px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.hero h1 {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.hero p {
+    animation: fadeIn 0.8s ease forwards 0.2s;
+    opacity: 0;
+}
+
+.hero-actions {
+    animation: fadeIn 0.8s ease forwards 0.4s;
+    opacity: 0;
+}
+
+.building-box {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Glassmorphism Hover */
+.glass {
+    transition: var(--transition);
+}
+
+.glass:hover {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: var(--primary);
+}
+
+/* Social Login Buttons */
+.social-login-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.btn-social {
+    padding: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.dark-mode .btn-social {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: var(--border-dark);
+    color: white;
+}
+
+.btn-social:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    background: rgba(0, 137, 102, 0.05);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: var(--text-muted-light);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dark-mode .divider { color: var(--text-muted-dark); }
+
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.dark-mode .divider::before, .dark-mode .divider::after {
+    border-bottom: 1px solid var(--border-dark);
+}
+
+.divider:not(:empty)::before { margin-right: 15px; }
+.divider:not(:empty)::after { margin-left: 15px; }
+
+.dark-mode .glass:hover {
+    background: rgba(30, 41, 59, 0.85);
+    border-color: var(--primary-light);
+}
