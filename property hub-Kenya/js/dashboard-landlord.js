@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetView) targetView.style.display = 'block';
 
             if (targetViewId === 'view-messages') renderMessagesSection();
+            if (targetViewId === 'view-tenants') renderTenantsSection();
+            if (targetViewId === 'view-payments') renderPaymentsSection();
         });
     });
 
@@ -156,6 +158,145 @@ function renderMessagesSection() {
         `;
     }).reverse().join('');
 }
+
+function renderTenantsSection() {
+    const user = Store.getCurrentUser();
+    const data = Store.getLandlordData(user.id);
+    const container = document.getElementById('view-tenants');
+    const allUsers = Store.getData(Store.USERS);
+    const allUnits = Store.getData(Store.UNITS);
+
+    if (data.tenants.length === 0) {
+        container.innerHTML = `
+            <h2>Tenants Management</h2>
+            <div class="glass" style="padding: 60px; text-align: center; border-radius: 24px; margin-top: 20px;">
+                <i class="fas fa-users fa-3x" style="color: var(--text-muted-light); margin-bottom: 20px;"></i>
+                <p>No tenants associated with your properties yet.</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="section-header">
+            <h2>Tenants Management</h2>
+        </div>
+        <div class="glass" style="padding: 30px; border-radius: 24px; overflow-x: auto;">
+            <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--border-light);">
+                        <th style="padding: 15px;">Tenant Name</th>
+                        <th style="padding: 15px;">Unit</th>
+                        <th style="padding: 15px;">Email</th>
+                        <th style="padding: 15px;">Status</th>
+                        <th style="padding: 15px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${data.tenants.map(t => {
+                        const tUser = allUsers.find(u => u.id === t.user_id);
+                        const tUnit = allUnits.find(u => u.id === t.unit_id);
+                        const statusClass = t.status === 'active' ? 'status-paid' : 'status-unpaid';
+                        
+                        return `
+                            <tr style="border-bottom: 1px solid var(--border-light);">
+                                <td style="padding: 15px;">
+                                    <strong>${tUser ? tUser.name : 'Unknown'}</strong>
+                                </td>
+                                <td style="padding: 15px;">${tUnit ? tUnit.unit_number : '---'}</td>
+                                <td style="padding: 15px; font-size: 0.9rem;">${tUser ? tUser.email : '---'}</td>
+                                <td style="padding: 15px;">
+                                    <span class="status-badge ${statusClass}">${t.status.replace('_', ' ')}</span>
+                                </td>
+                                <td style="padding: 15px;">
+                                    <button class="btn btn-outline btn-sm" onclick="handleTenantAction('${t.user_id}', 'remove')">
+                                        <i class="fas fa-user-minus"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('')}
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+function renderPaymentsSection() {
+    const user = Store.getCurrentUser();
+    const data = Store.getLandlordData(user.id);
+    const payments = Store.getData(Store.PAYMENTS);
+    const container = document.getElementById('view-payments');
+    const allUsers = Store.getData(Store.USERS);
+    const allUnits = Store.getData(Store.UNITS);
+
+    // Filter payments for landlord's units
+    const unitIds = data.units.map(u => u.id);
+    const landlordPayments = payments.filter(p => unitIds.includes(p.unit_id));
+
+    if (landlordPayments.length === 0) {
+        container.innerHTML = `
+            <h2>Payment Records</h2>
+            <div class="glass" style="padding: 60px; text-align: center; border-radius: 24px; margin-top: 20px;">
+                <i class="fas fa-history fa-3x" style="color: var(--text-muted-light); margin-bottom: 20px;"></i>
+                <p>No payment records found.</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="section-header">
+            <h2>Payment Records</h2>
+            <div class="status-badge status-paid">Total Collected: KES ${landlordPayments.reduce((acc, p) => acc + parseFloat(p.amount), 0).toLocaleString()}</div>
+        </div>
+        <div class="glass" style="padding: 30px; border-radius: 24px; overflow-x: auto;">
+            <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--border-light);">
+                        <th style="padding: 15px;">Date</th>
+                        <th style="padding: 15px;">Tenant</th>
+                        <th style="padding: 15px;">Unit</th>
+                        <th style="padding: 15px;">Amount</th>
+                        <th style="padding: 15px;">Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${landlordPayments.map(p => {
+                        const tUser = allUsers.find(u => u.id === p.tenant_id);
+                        const tUnit = allUnits.find(u => u.id === p.unit_id);
+                        
+                        return `
+                            <tr style="border-bottom: 1px solid var(--border-light);">
+                                <td style="padding: 15px; font-size: 0.9rem;">${new Date(p.paid_at).toLocaleDateString()}</td>
+                                <td style="padding: 15px;"><strong>${tUser ? tUser.name : 'Unknown'}</strong></td>
+                                <td style="padding: 15px;">${tUnit ? tUnit.unit_number : '---'}</td>
+                                <td style="padding: 15px; font-weight: 600; color: var(--primary);">KES ${parseFloat(p.amount).toLocaleString()}</td>
+                                <td style="padding: 15px; font-family: monospace; font-size: 0.8rem;">${p.id}</td>
+                            </tr>
+                        `;
+                    }).reverse().join('')}
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+window.handleTenantAction = (userId, action) => {
+    if (action === 'remove') {
+        if (confirm('Are you sure you want to remove this tenant? This will vacate the unit.')) {
+            const tenants = Store.getData(Store.TENANTS);
+            const tenant = tenants.find(t => t.user_id === userId);
+            if (tenant && tenant.unit_id) {
+                Store.updateUnitStatus(tenant.unit_id, 'vacant');
+            }
+            Store.updateTenantStatus(userId, 'exited', { unit_id: null, landlord_id: null });
+            showToast('Tenant removed successfully');
+            renderTenantsSection();
+            renderDashboard();
+        }
+    }
+};
 
 function renderStats() {
     const user = Store.getCurrentUser();
