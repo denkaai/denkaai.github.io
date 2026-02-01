@@ -29,7 +29,16 @@ const Router = {
     },
 
     async handleRoute() {
-        const path = window.location.pathname.replace('/propertyhub', '').replace(/\/$/, '') || '/';
+        const fullPath = window.location.pathname;
+        // Handle various base paths (Vercel subfolder vs Root vs Local)
+        let path = fullPath.replace('/propertyhub', '').replace('/property-hub-kenya', '').replace('/property hub-Kenya', '').replace(/\/$/, '') || '/';
+        
+        // Final fallback if the path is still absolute but should be relative to our known routes
+        if (!this.routes[path] && path !== '/') {
+            const possibleRoute = '/' + path.split('/').pop();
+            if (this.routes[possibleRoute]) path = possibleRoute;
+        }
+
         const template = this.routes[path] || this.routes['/'];
         
         try {
