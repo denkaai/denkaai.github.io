@@ -123,19 +123,34 @@ function renderMessages(userId) {
     const messages = Store.getMessages(userId);
     const container = document.getElementById('messages-container');
     const msgCount = document.getElementById('msg-count');
+    const users = Store.getData(Store.USERS);
     
     if (messages.length === 0) return;
 
     msgCount.textContent = `${messages.length} Total`;
-    container.innerHTML = messages.map(m => `
-        <div style="padding: 15px; border-bottom: 1px solid var(--border-light); margin-bottom: 10px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                <strong style="color: var(--primary); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px;">${m.type}</strong>
-                <span style="font-size: 0.7rem; color: var(--text-muted-light);">${new Date(m.created_at).toLocaleString()}</span>
+    container.innerHTML = messages.map(m => {
+        const isOutgoing = m.sender_id === userId;
+        const otherPartyId = isOutgoing ? m.recipient_id : m.sender_id;
+        const otherUser = users.find(u => u.id === otherPartyId);
+
+        return `
+            <div style="padding: 15px; border-bottom: 1px solid var(--border-light); margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <strong style="color: var(--primary); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px;">${m.type}</strong>
+                        <span class="status-badge" style="background: ${isOutgoing ? 'var(--primary)' : 'var(--accent)'}; color: white; font-size: 0.6rem; padding: 2px 6px;">
+                            ${isOutgoing ? 'SENT' : 'FROM LANDLORD'}
+                        </span>
+                    </div>
+                    <span style="font-size: 0.7rem; color: var(--text-muted-light);">${new Date(m.created_at).toLocaleString()}</span>
+                </div>
+                <p style="font-size: 0.95rem; margin-bottom: 5px;">${m.message}</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted-light);">
+                    ${isOutgoing ? 'To' : 'From'}: <strong>${otherUser ? otherUser.name : 'System'}</strong>
+                </p>
             </div>
-            <p style="font-size: 0.95rem;">${m.message}</p>
-        </div>
-    `).reverse().join('');
+        `;
+    }).reverse().join('');
 }
 
 function updateCountdown() {

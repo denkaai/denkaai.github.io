@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Router.init() is ready for production deployment
-    // Router.init(); 
+    // Router initialization
+    Router.init(); 
 });
 
 export const showToast = (message, type = 'success') => {

@@ -140,58 +140,84 @@
     <div class="dashboard-layout">
         <div class="sidebar glass">
             <div style="display: flex; flex-direction: column; gap: 10px;">
-                <a href="#" class="btn btn-primary" style="justify-content: flex-start; gap: 15px;"><i class="fas fa-th-large"></i> <span>Overview</span></a>
-                <a href="#" class="btn btn-outline" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-building"></i> <span>Properties</span></a>
-                <a href="#" class="btn btn-outline" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-users"></i> <span>Tenants</span></a>
-                <a href="#" class="btn btn-outline" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-envelope"></i> <span>Messages</span></a>
-                <a href="#" class="btn btn-outline" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-history"></i> <span>Payments</span></a>
+                <a href="#" id="nav-overview" class="btn btn-primary nav-item" style="justify-content: flex-start; gap: 15px;"><i class="fas fa-th-large"></i> <span>Overview</span></a>
+                <a href="#" id="nav-properties" class="btn btn-outline nav-item" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-building"></i> <span>Properties</span></a>
+                <a href="#" id="nav-tenants" class="btn btn-outline nav-item" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-users"></i> <span>Tenants</span></a>
+                <a href="#" id="nav-messages" class="btn btn-outline nav-item" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-envelope"></i> <span>Messages</span></a>
+                <a href="#" id="nav-payments" class="btn btn-outline nav-item" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-history"></i> <span>Payments</span></a>
             </div>
         </div>
 
         <main class="main-content">
-            <!-- KPIs -->
-            <div class="stats-grid">
-                <div class="stat-card glass">
-                    <div class="stat-label">Occupancy</div>
-                    <div class="stat-value" id="occupancy-rate">0/0</div>
+            <!-- Overview View -->
+            <div id="view-overview" class="dashboard-view">
+                <!-- KPIs -->
+                <div class="stats-grid">
+                    <div class="stat-card glass">
+                        <div class="stat-label">Occupancy</div>
+                        <div class="stat-value" id="occupancy-rate">0/0</div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-label">Rent Collected</div>
+                        <div class="stat-value" id="collected-rent">KES 0</div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-label">Overdue</div>
+                        <div class="stat-value" id="overdue-rent" style="color: #ef4444;">KES 0</div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-label">Pending Requests</div>
+                        <div class="stat-value" id="pending-count">0</div>
+                    </div>
                 </div>
-                <div class="stat-card glass">
-                    <div class="stat-label">Rent Collected</div>
-                    <div class="stat-value" id="collected-rent">KES 0</div>
+
+                <!-- Actionable Requests Section -->
+                <section id="requests-section" class="dashboard-section" style="display: none;">
+                    <div class="section-header">
+                        <h2>Pending Actions</h2>
+                    </div>
+                    <div id="requests-container">
+                        <!-- Approval and Move-out requests will be injected here -->
+                    </div>
+                </section>
+
+                <!-- Properties Section -->
+                <section class="dashboard-section">
+                    <div class="section-header">
+                        <h2>My Properties</h2>
+                        <button class="btn btn-primary" onclick="openModal('property-modal')"><i class="fas fa-plus"></i> Add Property</button>
+                    </div>
+                    <div id="properties-container" class="property-grid">
+                        <div class="property-card glass" style="grid-column: 1/-1; text-align: center; padding: 60px;">
+                            <i class="fas fa-building fa-3x" style="color: var(--text-muted-light); margin-bottom: 20px;"></i>
+                            <p>No properties added yet.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Messages View -->
+            <div id="view-messages" class="dashboard-view" style="display: none;">
+                <div class="section-header">
+                    <h2>Broadcast & Messaging</h2>
+                    <button class="btn btn-primary" onclick="window.openModal('message-modal')"><i class="fas fa-paper-plane"></i> Send Message</button>
                 </div>
-                <div class="stat-card glass">
-                    <div class="stat-label">Overdue</div>
-                    <div class="stat-value" id="overdue-rent" style="color: #ef4444;">KES 0</div>
-                </div>
-                <div class="stat-card glass">
-                    <div class="stat-label">Pending Requests</div>
-                    <div class="stat-value" id="pending-count">0</div>
+                <div class="glass" style="padding: 30px; border-radius: 24px;">
+                    <div id="messages-list-container">
+                        <p style="text-align: center; color: var(--text-muted-light); padding: 40px;">No message history found.</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Actionable Requests Section -->
-            <section id="requests-section" class="dashboard-section" style="display: none;">
-                <div class="section-header">
-                    <h2>Pending Actions</h2>
-                </div>
-                <div id="requests-container">
-                    <!-- Approval and Move-out requests will be injected here -->
-                </div>
-            </section>
-
-            <!-- Properties Section -->
-            <section class="dashboard-section">
-                <div class="section-header">
-                    <h2>My Properties</h2>
-                    <button class="btn btn-primary" onclick="openModal('property-modal')"><i class="fas fa-plus"></i> Add Property</button>
-                </div>
-                <div id="properties-container" class="property-grid">
-                    <div class="property-card glass" style="grid-column: 1/-1; text-align: center; padding: 60px;">
-                        <i class="fas fa-building fa-3x" style="color: var(--text-muted-light); margin-bottom: 20px;"></i>
-                        <p>No properties added yet.</p>
-                    </div>
-                </div>
-            </section>
+            <!-- Other Views Placeholder -->
+            <div id="view-tenants" class="dashboard-view" style="display: none;">
+                <h2>Tenants Management</h2>
+                <p>Coming soon...</p>
+            </div>
+            <div id="view-payments" class="dashboard-view" style="display: none;">
+                <h2>Payment Records</h2>
+                <p>Coming soon...</p>
+            </div>
         </main>
     </div>
 
@@ -211,6 +237,38 @@
                 <div style="display: flex; gap: 16px; margin-top: 30px;">
                     <button type="button" class="btn btn-outline" onclick="closeModal('property-modal')" style="flex: 1;">Cancel</button>
                     <button type="submit" class="btn btn-primary" style="flex: 1;">Save Property</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div id="message-modal" class="modal">
+        <div class="modal-content glass">
+            <h3>Send New Message</h3>
+            <form id="send-message-form" style="margin-top: 20px;">
+                <div class="form-group">
+                    <label>Recipient</label>
+                    <select id="msg-recipient" class="form-control" required>
+                        <option value="broadcast">All Tenants (Broadcast)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Message Type</label>
+                    <select id="msg-type" class="form-control">
+                        <option value="general">General Notification</option>
+                        <option value="payment">Payment Reminder</option>
+                        <option value="maintenance">Maintenance Update</option>
+                        <option value="warning">Notice/Warning</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Message Content</label>
+                    <textarea id="msg-content" class="form-control" rows="4" placeholder="Type your message here..." required></textarea>
+                </div>
+                <div style="display: flex; gap: 16px; margin-top: 30px;">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('message-modal')" style="flex: 1;">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Send Message</button>
                 </div>
             </form>
         </div>

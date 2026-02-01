@@ -10,6 +10,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('user-name').textContent = `Welcome, ${user.name}`;
     
+    // Sidebar Navigation
+    const navItems = document.querySelectorAll('.nav-item');
+    const views = document.querySelectorAll('.dashboard-view');
+
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetViewId = `view-${item.id.replace('nav-', '')}`;
+            
+            // Update Active Nav
+            navItems.forEach(ni => {
+                ni.classList.remove('btn-primary');
+                ni.classList.add('btn-outline');
+                ni.style.border = 'none';
+            });
+            item.classList.remove('btn-outline');
+            item.classList.add('btn-primary');
+            item.style.border = 'initial';
+
+            // Switch View
+            views.forEach(v => v.style.display = 'none');
+            const targetView = document.getElementById(targetViewId);
+            if (targetView) targetView.style.display = 'block';
+
+            if (targetViewId === 'view-messages') renderMessagesSection();
+        });
+    });
+
     // Logout Logic
     document.getElementById('logout-btn').addEventListener('click', () => {
         Store.logout();
@@ -32,13 +60,101 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Send Message Logic
+    const sendMsgForm = document.getElementById('send-message-form');
+    if (sendMsgForm) {
+        sendMsgForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const recipientId = document.getElementById('msg-recipient').value;
+            const type = document.getElementById('msg-type').value;
+            const message = document.getElementById('msg-content').value;
+            
+            if (recipientId === 'broadcast') {
+                const data = Store.getLandlordData(user.id);
+                const uniqueTenantIds = [...new Set(data.tenants.map(t => t.user_id))];
+                uniqueTenantIds.forEach(tId => {
+                    Store.sendMessage(user.id, tId, message, type);
+                });
+                showToast(`Broadcast sent to ${uniqueTenantIds.length} tenants`);
+            } else {
+                Store.sendMessage(user.id, recipientId, message, type);
+                showToast('Message sent successfully');
+            }
+
+            closeModal('message-modal');
+            renderMessagesSection();
+            sendMsgForm.reset();
+        });
+    }
+
     renderDashboard();
+    populateRecipients();
 });
 
 function renderDashboard() {
     renderStats();
     renderRequests();
     renderProperties();
+    populateRecipients();
+}
+
+function populateRecipients() {
+    const user = Store.getCurrentUser();
+    const data = Store.getLandlordData(user.id);
+    const select = document.getElementById('msg-recipient');
+    if (!select) return;
+
+    // Reset but keep broadcast
+    select.innerHTML = '<option value="broadcast">All Tenants (Broadcast)</option>';
+    
+    const uniqueTenantIds = [...new Set(data.tenants.map(t => t.user_id))];
+    const users = Store.getData(Store.USERS);
+
+    uniqueTenantIds.forEach(tId => {
+        const tenantUser = users.find(u => u.id === tId);
+        if (tenantUser) {
+            const option = document.createElement('option');
+            option.value = tId;
+            option.textContent = tenantUser.name;
+            select.appendChild(option);
+        }
+    });
+}
+
+function renderMessagesSection() {
+    const user = Store.getCurrentUser();
+    const messages = Store.getMessages(user.id);
+    const container = document.getElementById('messages-list-container');
+    const users = Store.getData(Store.USERS);
+
+    if (messages.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: var(--text-muted-light); padding: 40px;">No message history found.</p>';
+        return;
+    }
+
+    container.innerHTML = messages.map(m => {
+        const isOutgoing = m.sender_id === user.id;
+        const otherPartyId = isOutgoing ? m.recipient_id : m.sender_id;
+        const otherUser = users.find(u => u.id === otherPartyId);
+        
+        return `
+            <div style="padding: 20px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">
+                        <span class="status-badge" style="background: ${isOutgoing ? 'var(--primary)' : 'var(--accent)'}; color: white; font-size: 0.7rem;">
+                            ${isOutgoing ? 'SENT' : 'RECEIVED'}
+                        </span>
+                        <strong style="color: var(--primary); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px;">${m.type}</strong>
+                        <span style="font-size: 0.7rem; color: var(--text-muted-light);">${new Date(m.created_at).toLocaleString()}</span>
+                    </div>
+                    <p style="font-size: 1rem; margin-bottom: 5px;">${m.message}</p>
+                    <p style="font-size: 0.8rem; color: var(--text-muted-light);">
+                        ${isOutgoing ? 'To' : 'From'}: <strong>${otherUser ? otherUser.name : 'Unknown'}</strong>
+                    </p>
+                </div>
+            </div>
+        `;
+    }).reverse().join('');
 }
 
 function renderStats() {

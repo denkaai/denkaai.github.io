@@ -109,6 +109,46 @@ nav {
     transform: scale(1.05);
 }
 
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    min-width: 180px;
+    padding: 0.5rem 0;
+    display: none;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    margin-top: 0.5rem;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    animation: fadeIn 0.2s ease;
+}
+
+.dropdown-menu li a {
+    padding: 0.75rem 1.5rem;
+    display: block;
+    font-size: 0.875rem;
+}
+
+.dropdown-menu li a:hover {
+    background: var(--secondary-color);
+    color: var(--accent-color);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* Theme Toggle */
 .theme-toggle {
     background: none;
@@ -263,25 +303,38 @@ section {
     overflow: hidden;
     border: 1px solid var(--border-color);
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card:hover {
     transform: translateY(-5px);
     border-color: var(--accent-color);
+    box-shadow: 0 10px 30px -15px rgba(2, 132, 199, 0.3);
 }
 
 .project-info {
-    padding: 1.5rem;
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-info h3 {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
 }
 
 .project-info p {
     color: var(--muted-color);
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    flex: 1;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
 }
 
 /* Project Showcase */

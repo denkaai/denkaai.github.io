@@ -18,8 +18,14 @@
             <div class="logo">DENKAAI</div>
             <ul class="nav-links">
                 <li><a href="#hero">Home</a></li>
-                <li><a href="pesaflow.html" class="nav-highlight">Launch PesaFlow</a></li>
-                <li><a href="#projects">Projects</a></li>
+                <li class="dropdown">
+                    <a href="#projects" class="nav-highlight">My Apps <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="pesaflow.html">PesaFlow</a></li>
+                        <li><a href="deadline-predictor.html">TimeGuard</a></li>
+                        <li><a href="propertyhub/">PropertyHub KE</a></li>
+                    </ul>
+                </li>
                 <li><a href="#support">Support</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li>
@@ -45,22 +51,44 @@
             </div>
         </section>
 
-        <!-- Featured Project: PesaFlow -->
+        <!-- Projects Section -->
         <section id="projects" class="container reveal">
-            <h2 class="section-title">Featured Project</h2>
-            <div class="project-showcase">
-                <div class="project-content">
-                    <div class="project-badge">SMART EXPENSE ANALYZER</div>
-                    <h3>PesaFlow</h3>
-                    <p>PesaFlow is an intelligent financial companion designed to help users track expenses, set budgets, and gain deep insights into their spending habits. Integrated with M-Pesa for seamless transaction syncing.</p>
-                    <ul class="project-tech">
-                        <li><i class="fab fa-js"></i> JavaScript</li>
-                        <li><i class="fas fa-chart-bar"></i> Chart.js</li>
-                        <li><i class="fas fa-mobile-alt"></i> M-Pesa API</li>
-                    </ul>
-                    <div class="project-actions">
-                        <a href="pesaflow.html" class="btn btn-primary">Launch PesaFlow</a>
-                        <a href="#support" class="btn btn-secondary">Support Development</a>
+            <h2 class="section-title">My Projects</h2>
+            
+            <div class="projects-grid">
+                <!-- Project 1: PesaFlow -->
+                <div class="project-card">
+                    <div class="project-info">
+                        <div class="project-badge">FINTECH</div>
+                        <h3>PesaFlow</h3>
+                        <p>Smart expense analyzer with M-Pesa integration and automated SMS parsing logic.</p>
+                        <div class="project-actions">
+                            <a href="pesaflow.html" class="btn btn-primary btn-sm">View App</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: PropertyHub KE -->
+                <div class="project-card">
+                    <div class="project-info">
+                        <div class="project-badge">REAL ESTATE FINTECH</div>
+                        <h3>PropertyHub KE</h3>
+                        <p>Smart rent management platform for Kenya with Flutterwave integration and direct landlord payments.</p>
+                        <div class="project-actions">
+                            <a href="propertyhub/" class="btn btn-primary btn-sm">View App</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: TimeGuard -->
+                <div class="project-card">
+                    <div class="project-info">
+                        <div class="project-badge">PRODUCTIVITY LOGIC</div>
+                        <h3>TimeGuard</h3>
+                        <p>Deadline risk predictor using algorithmic time estimation to prevent project failure.</p>
+                        <div class="project-actions">
+                            <a href="deadline-predictor.html" class="btn btn-primary btn-sm">View App</a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TimeGuard - Smart Deadline Risk Predictor. Predict project risks using time estimation logic.">
+    <title>TimeGuard | Deadline Risk Predictor</title>
+    <link rel="stylesheet" href="assets/css/deadline-predictor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body data-theme="dark">
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-shield-halved"></i>
+                    <span>TimeGuard</span>
+                </a>
+            </div>
+            <div class="header-controls">
+                <button class="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-mini">
+            <h1>Predict Your <span class="gradient-text">Success</span></h1>
+            <p>Enter your task details and let TimeGuard calculate if you're on track or at risk of missing your deadline.</p>
+        </section>
+
+        <div class="grid-layout">
+            <!-- Input Section -->
+            <section class="input-card card">
+                <h2><i class="fas fa-plus-circle"></i> New Task Analysis</h2>
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="task-name">Task / Project Name</label>
+                        <input type="text" id="task-name" placeholder="e.g. Portfolio Redesign" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="due-date">Deadline Date</label>
+                            <input type="date" id="due-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="est-hours">Total Est. Hours</label>
+                            <input type="number" id="est-hours" placeholder="e.g. 40" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="daily-hours">Your Daily Availability (Hours)</label>
+                        <input type="number" id="daily-hours" value="4" min="1" max="24" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Analyze Risk</button>
+                </form>
+            </section>
+
+            <!-- Risk Dashboard -->
+            <section class="dashboard card">
+                <h2><i class="fas fa-chart-line"></i> Risk Dashboard</h2>
+                <div id="risk-summary" class="summary-grid">
+                    <div class="stat-card">
+                        <span class="label">Total Tasks</span>
+                        <span id="total-tasks" class="value">0</span>
+                    </div>
+                    <div class="stat-card critical">
+                        <span class="label">At Critical Risk</span>
+                        <span id="critical-tasks" class="value">0</span>
+                    </div>
+                </div>
+                <div class="risk-legend">
+                    <span class="badge safe">Safe</span>
+                    <span class="badge warning">Warning</span>
+                    <span class="badge danger">Critical</span>
+                </div>
+            </section>
+        </div>
+
+        <!-- Task List -->
+        <section class="task-section">
+            <div class="section-header">
+                <h2>Analyzed Tasks</h2>
+                <button id="clear-all" class="btn-link">Clear All</button>
+            </div>
+            <div id="task-list" class="task-grid">
+                <!-- Tasks will be injected here -->
+                <div class="empty-state">
+                    <i class="fas fa-hourglass-start"></i>
+                    <p>No tasks analyzed yet. Start by adding one above!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Denkaai. All rights reserved.</p>
+            <p>Designed & Developed by <span class="brand">D-E-N-K-A-A-I</span></p>
+        </div>
+    </footer>
+
+    <script src="assets/js/deadline-predictor.js"></script>
+</body>
+</html>
