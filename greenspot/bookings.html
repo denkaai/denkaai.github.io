@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Experience | GreenSpot Gardens Kamakis - Table & Events</title>
+    <meta name="description"
+        content="Reserve your table or book your private event at GreenSpot Gardens, Kamakis. Perfect for birthdays, weddings, and corporate gatherings.">
+    <meta property="og:title" content="Bookings | GreenSpot Gardens Kamakis">
+    <meta property="og:description"
+        content="Plan your visit or event at GreenSpot Gardens. Book directly via WhatsApp.">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <nav></nav>
+
+    <section class="container fade-in" style="padding-top: 120px;">
+        <div class="section-title">
+            <h2>Book Your Experience</h2>
+            <p>Planning an event? Let us host you!</p>
+        </div>
+
+        <form class="booking-form" id="bookingForm">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" required placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" required placeholder="07XX XXX XXX">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" required placeholder="example@email.com">
+            </div>
+            <div class="form-group">
+                <label for="date">Preferred Date</label>
+                <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+                <label for="guests">Number of Guests</label>
+                <input type="number" id="guests" min="1" required placeholder="How many people?">
+            </div>
+            <div class="form-group">
+                <label for="eventType">Event Type</label>
+                <select id="eventType" required>
+                    <option value="">Select event type</option>
+                    <option value="Table Booking">Table Booking</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Wedding">Wedding</option>
+                    <option value="Corporate Event">Corporate Event</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Book Now via WhatsApp</button>
+        </form>
+    </section>
+
+    <footer></footer>
+
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('bookingForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('fullName');
+            const phone = document.getElementById('phone');
+            const email = document.getElementById('email');
+            const date = document.getElementById('date');
+            const guests = document.getElementById('guests');
+            const type = document.getElementById('eventType');
+
+            let isValid = true;
+
+            // Reset styles
+            [name, phone, email, date, guests, type].forEach(input => {
+                input.parentElement.className = 'form-group';
+            });
+
+            // Basic Validation
+            if (name.value.trim().length < 3) {
+                GreenspotUtils.showError(name, 'Please enter your full name');
+                isValid = false;
+            } else {
+                GreenspotUtils.showSuccess(name);
+            }
+
+            if (!GreenspotUtils.isValidPhone(phone.value)) {
+                GreenspotUtils.showError(phone, 'Enter a valid Kenyan phone number (07XX... or 01XX...)');
+                isValid = false;
+            } else {
+                GreenspotUtils.showSuccess(phone);
+            }
+
+            if (!GreenspotUtils.isValidEmail(email.value)) {
+                GreenspotUtils.showError(email, 'Enter a valid email address');
+                isValid = false;
+            } else {
+                GreenspotUtils.showSuccess(email);
+            }
+
+            // Date validation (not in the past)
+            const selectedDate = new Date(date.value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (selectedDate < today) {
+                GreenspotUtils.showError(date, 'Please select a future date');
+                isValid = false;
+            } else {
+                GreenspotUtils.showSuccess(date);
+            }
+
+            if (guests.value < 1) {
+                GreenspotUtils.showError(guests, 'Must be at least 1 guest');
+                isValid = false;
+            } else {
+                GreenspotUtils.showSuccess(guests);
+            }
+
+            if (!type.value) {
+                GreenspotUtils.showError(type, 'Please select an event type');
+                isValid = false;
+            } else {
+                GreenspotUtils.showSuccess(type);
+            }
+
+            if (isValid) {
+                const message = `Hello GreenSpot Gardens, I would like to make a booking:
+Name: ${name.value}
+Phone: ${phone.value}
+Email: ${email.value}
+Date: ${date.value}
+Guests: ${guests.value}
+Event Type: ${type.value}`;
+
+                const encodedMessage = encodeURIComponent(message);
+                window.location.href = `https://wa.me/254110057300?text=${encodedMessage}`;
+            }
+        });
+
+        // Set min date for date picker to today
+        const dateInput = document.getElementById('date');
+        const todayStr = new Date().toISOString().split('T')[0];
+        if (dateInput) dateInput.setAttribute('min', todayStr);
+    </script>
+</body>
+
+</html>
