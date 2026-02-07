@@ -351,7 +351,7 @@
             #gs-chatbot {
                 position: fixed;
                 bottom: 100px;
-                right: 20px;
+                left: 20px;
                 z-index: 9999;
                 font-family: 'Poppins', sans-serif;
             }
@@ -396,7 +396,7 @@
             .gs-chat-window {
                 position: absolute;
                 bottom: 75px;
-                right: 0;
+                left: 0;
                 width: 370px;
                 max-width: 90vw;
                 height: 480px;
@@ -594,7 +594,7 @@
             }
 
             @media (max-width: 480px) {
-                #gs-chatbot { bottom: 80px; right: 10px; }
+                #gs-chatbot { bottom: 80px; left: 10px; }
                 .gs-chat-window { width: 300px; height: 400px; }
                 .chat-header-info h4 { font-size: 0.8rem; }
             }
