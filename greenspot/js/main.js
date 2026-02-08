@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Green Sports Gardens. All rights reserved.</p>
+            <p>Designed and Developed by denkaai 2026</p>
         </div>
     `;
 
