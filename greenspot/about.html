@@ -4,92 +4,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | GreenSpot Gardens Kamakis - Premier Outdoor Dining</title>
-    <meta name="description"
-        content="Learn more about GreenSpot Gardens in Kamakis. Our vision is to provide the best garden dining experience with authentic Kenyan flavors and top-tier security.">
-    <meta property="og:title" content="About Us | GreenSpot Gardens Kamakis">
-    <meta property="og:description"
-        content="Discover our history, mission, and the unique garden ambience at GreenSpot Gardens.">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+    <title>About Us | Green Sports Gardens – Premier Garden Lounge</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
         rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
-    <nav></nav>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">GREEN SPORTS <span>GARDENS</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="facilities.html">Facilities</a>
+                <a href="events.html">Events</a>
+                <a href="about.html" class="active">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="#gigi" class="btn btn-primary" onclick="toggleGigi()">Talk to Gigi</a>
+            </div>
+        </div>
+    </nav>
 
     <header class="page-hero about-hero fade-in">
-        <h1>About Us</h1>
+        <h1>Our <span>Legacy</span></h1>
     </header>
 
-    <section class="container fade-in">
+    <section class="container fade-in"
+        style="background: url('assets/image/background/home-bg-hq.webp') center/cover; padding: 100px 20px; position: relative; border-radius: var(--border-radius); overflow: hidden; margin-top: -60px; z-index: 10;">
+        <div
+            style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.92); z-index: -1;">
+        </div>
         <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <p style="font-size: 1.1rem; margin-bottom: 30px;">GreenSpot Gardens is a premier outdoor dining and
-                entertainment destination located in the heart of Kamakis, Ruiru along the Eastern Bypass. We offer a
-                unique blend of traditional Kenyan hospitality and modern garden ambience.</p>
-            <p style="font-size: 1.1rem; margin-bottom: 30px;">Whether you're looking for the best Nyama Choma in town,
-                a relaxed spot for drinks with friends, or a beautiful venue for your next private event, GreenSpot
-                Gardens provides the perfect backdrop.</p>
-            <p style="font-size: 1.1rem; margin-bottom: 30px;">We prioritize your safety and convenience with a
-                <strong>massive car park</strong> capable of hosting large groups, all <strong>guarded by our
-                    professional security team</strong> to ensure your peace of mind while you enjoy your time with us.
-            </p>
-            <div class="grid-3" style="margin-top: 50px;">
+            <div class="section-title">
+                <h2>The Green Sports Experience</h2>
+                <p>A sanctuary of taste and tranquility in the heart of Kamakis.</p>
+            </div>
+            <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 30px;">Green Sports Gardens is a premier
+                outdoor dining and entertainment destination located in Kamakis, Ruiru along the Eastern Bypass. We
+                offer a unique blend of traditional hospitality and modern garden elegance.</p>
+            <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 30px;">Our vision is to provide a serene
+                escape where master-crafted gastronomy meets the beauty of nature. Whether you're here for our signature
+                grilled platters or an evening of mixology, every moment is designed to be exceptional.</p>
+
+            <div class="grid-3" style="margin-top: 60px;">
                 <div class="card">
+                    <i class="fas fa-eye"
+                        style="font-size: 2rem; color: var(--primary-green); margin-bottom: 20px;"></i>
                     <h3>Our Vision</h3>
-                    <p>To be the leading garden restaurant in Kenya, known for quality food and an exceptional social
-                        experience.</p>
+                    <p>To be the leading garden destination in Kenya, celebrated for excellence in flavor and
+                        atmosphere.</p>
                 </div>
                 <div class="card">
+                    <i class="fas fa-bullseye"
+                        style="font-size: 2rem; color: var(--primary-green); margin-bottom: 20px;"></i>
                     <h3>Our Mission</h3>
-                    <p>To provide a relaxed, family-friendly environment with top-tier service and authentic Kenyan
-                        flavors.</p>
+                    <p>To provide a premium, nature-focused environment with world-class service and authentic Kenyan
+                        soul.</p>
                 </div>
                 <div class="card">
+                    <i class="fas fa-heart"
+                        style="font-size: 2rem; color: var(--primary-green); margin-bottom: 20px;"></i>
                     <h3>Our Values</h3>
-                    <p>Quality, Hospitality, Community, and Excellence in everything we do.</p>
+                    <p>Integrity, Innovation, and Indulgence in every experience we curate for our guests.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Ambience Section -->
-    <section class="container fade-in">
-        <div class="section-title">
-            <h2>Our Ambience</h2>
-            <p>Take a look at the beautiful setting that awaits you.</p>
+    <!-- Ambience Section with Background -->
+    <section class="fade-in"
+        style="background: url('assets/image/background/event-bg-hq.jpg') center/cover fixed; padding: 120px 0; margin-top: 80px; position: relative; color: white;">
+        <div
+            style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 1;">
         </div>
-        <div class="grid-2">
-            <div class="gallery-item" style="height: 400px;">
-                <img src="assets/image/gallery/garden/our-ambience.jpg.webp" alt="Seating Area">
-                <div class="gallery-caption">
-                    <h4>Spacious & Green</h4>
-                    <p>Our expansive grounds offer plenty of room for large groups while maintaining intimacy for
-                        smaller gatherings.</p>
-                </div>
+        <div class="container" style="position: relative; z-index: 2;">
+            <div class="section-title">
+                <h2 style="color: white;">Curated Ambience</h2>
+                <p style="color: rgba(255,255,255,0.8);">Designed for those who appreciate the finer things in life.</p>
             </div>
-            <div class="gallery-item" style="height: 400px;">
-                <img src="assets/image/gallery/garden/night-1.jpg.webp" alt="Evening Vibe">
-                <div class="gallery-caption">
-                    <h4>Magical Nights</h4>
-                    <p>As evening falls, GreenSpot transforms into a serene oasis with ambient lighting and cool
-                        breezes.</p>
+            <div class="grid-2">
+                <div class="card"
+                    style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); color: white;">
+                    <h3>Daytime Serenity</h3>
+                    <p>Lush greenery and soft sunlight create the perfect backdrop for business lunches and family
+                        gatherings.</p>
+                </div>
+                <div class="card"
+                    style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); color: white;">
+                    <h3>Nighttime Elegance</h3>
+                    <p>As the sun sets, our gardens transform with ambient lighting and signature mixology vibes.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer></footer>
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Green Sports Gardens. All rights reserved.</p>
+        </div>
+    </footer>
 
-    <!-- Custom JS -->
-    <script src="js/main.js"></script>
-    <script src="js/chatbot.js"></script>
+    <script src="js/gigi.js"></script>
+    <script>
+        function toggleGigi() { window.gigiAssistant && window.gigiAssistant.toggleWindow(); }
+    </script>
 </body>
 
 </html>

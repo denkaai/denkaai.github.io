@@ -2,16 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inject Components
     const navHTML = `
         <div class="nav-container">
-            <a href="index.html" class="logo">GreenSpot Gardens</a>
+            <a href="index.html" class="logo">GREEN SPORTS <span>GARDENS</span></a>
             <div class="nav-links">
                 <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="menu.html">Menu</a>
+                <a href="facilities.html">Facilities</a>
                 <a href="events.html">Events</a>
-                <a href="bookings.html">Bookings</a>
+                <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
-                <a href="https://wa.me/254110057300" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> 0110-057-300</a>
-                <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+                <a href="#gigi" class="btn btn-primary" onclick="toggleGigi()">Talk to Gigi</a>
             </div>
             <div class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -19,10 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="mobile-nav">
             <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="menu.html">Menu</a>
+            <a href="facilities.html">Facilities</a>
             <a href="events.html">Events</a>
-            <a href="bookings.html">Bookings</a>
+            <a href="about.html">About</a>
             <a href="contact.html">Contact</a>
             <a href="https://wa.me/254110057300" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> 0110-057-300</a>
         </div>
@@ -31,29 +28,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const footerHTML = `
         <div class="footer-content">
             <div class="footer-section">
-                <h3>GreenSpot Gardens</h3>
-                <p>Modern outdoor dining and entertainment destination in Kamakis, Ruiru.</p>
+                <h3>GREEN SPORTS GARDENS</h3>
+                <p>The premier garden dining and relaxation destination in Kamakis, Ruiru.</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
-                <a href="about.html">About Us</a><br>
-                <a href="menu.html">Our Menu</a><br>
-                <a href="events.html">Events</a><br>
-                <a href="bookings.html">Bookings</a>
+                <a href="facilities.html">Our facilities</a><br>
+                <a href="events.html">Events & Vibe</a><br>
+                <a href="about.html">Our Legacy</a><br>
+                <a href="contact.html">Contact Us</a>
             </div>
             <div class="footer-section">
                 <h3>Contact Info</h3>
-                <p><i class="fas fa-phone"></i> 0110-057-300</p>
-                <p><i class="fas fa-envelope"></i> contact.denkaai@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +254 110 057 300</p>
+                <p><i class="fas fa-envelope"></i> hello@greensportsgardens.co.ke</p>
                 <div class="social-links">
-                    <a href="https://facebook.com/green_spot_gardens" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="https://instagram.com/green_spot_gardens" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 GreenSpot Gardens. Designed & Developed by Denkaai</p>
+            <p>&copy; 2026 Green Sports Gardens. All rights reserved.</p>
         </div>
     `;
 
@@ -182,8 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="tour-controls">
                             <button class="tour-nav-btn active" data-src="assets/image/virtual-tour/garden-360.jpg.jpg" data-title="360° Garden View">Garden</button>
                             <button class="tour-nav-btn" data-src="assets/image/virtual-tour/view-360.jpg.webp" data-title="360° Venue View">Venue View</button>
-                            <button class="tour-nav-btn" data-src="assets/image/virtual-tour/fieled-360.jpg.webp" data-title="360° Field View">Outdoor Field</button>
-                            <button class="tour-nav-btn" data-src="assets/image/virtual-tour/master-chef-360.jpg.webp" data-title="360° Kitchen View">Master Chef's Area</button>
+                            <button class="tour-nav-btn" data-src="assets/image/virtual-tour/fieled-360.jpg.webp" data-title="360° Signature Lounge">Signature Lounge</button>
+                            <button class="tour-nav-btn" data-src="assets/image/virtual-tour/master-chef-360.jpg.webp" data-title="360° Master Chef's Area">Signature Grill</button>
                         </div>
                     </div>
                 </div>

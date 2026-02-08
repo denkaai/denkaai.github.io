@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Signature Spaces | Green Sports Gardens – Dining & Lounge</title>
+    <meta name="description"
+        content="Explore our signature spaces: the Signature Dining area, Garden Lounge, Private Event spaces, and our artisanal Mixology Bar.">
+    <meta name="keywords"
+        content="Garden Lounge, Signature Dining, Private Events, Mixology, Green Sports Gardens, Kamakis">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">GREEN SPORTS <span>GARDENS</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="facilities.html" class="active">Facilities</a>
+                <a href="events.html">Events</a>
+                <a href="contact.html">Contact</a>
+                <a href="#gigi" class="btn btn-primary" onclick="toggleGigi()">Talk to Gigi</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-hero facilities-hero">
+        <h1 class="fade-in">Our Signature <span>Spaces</span></h1>
+    </header>
+
+    <section class="container fade-in">
+        <div class="grid-2">
+            <!-- Signature Dining -->
+            <div class="facility-detail card">
+                <div class="facility-img">
+                    <img src="assets/image/menu/main dishes & drinks/choma-7.webp" alt="Signature Dining">
+                </div>
+                <div class="facility-info">
+                    <h2>Signature Gastronomy</h2>
+                    <p>Our main dining area offers a premium al fresco experience. Indulge in authentic Nyama Choma and
+                        international fusion dishes prepared with the freshest garden ingredients.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Master-Chef Grilled Delicacies</li>
+                        <li><i class="fas fa-check"></i> Premium Wine & Spirits Selection</li>
+                        <li><i class="fas fa-check"></i> Acoustic Background Music</li>
+                        <li><i class="fas fa-check"></i> Attentive Tableside Service</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="openGigi('dining')">Book a Table</button>
+                </div>
+            </div>
+
+            <!-- Garden Lounge -->
+            <div class="facility-detail card">
+                <div class="facility-img">
+                    <img src="assets/image/gallery/garden/night-1.jpg.webp" alt="Garden Lounge">
+                </div>
+                <div class="facility-info">
+                    <h2>Garden Lounge</h2>
+                    <p>Unwind in our lush, green oasis. Our lounge is designed for those seeking serenity and premium
+                        relaxation, featuring comfortable seating and ambient lighting.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Comfortable Cabana Seating</li>
+                        <li><i class="fas fa-check"></i> Ambient Evening Lighting</li>
+                        <li><i class="fas fa-check"></i> Curated Mixology Menu</li>
+                        <li><i class="fas fa-check"></i> Perfect for Group Hangouts</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="openGigi('lounge')">Reserve a Spot</button>
+                </div>
+            </div>
+
+            <!-- Private Events -->
+            <div class="facility-detail card">
+                <div class="facility-img">
+                    <img src="assets/image/gallery/garden/our-ambience.jpg.webp" alt="Private Events">
+                </div>
+                <div class="facility-info">
+                    <h2>Private Event Spaces</h2>
+                    <p>The perfect venue for your special moments. From intimate birthday celebrations to premium
+                        corporate events, our gardens provide a stunning natural backdrop.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Flexible Event Layouts</li>
+                        <li><i class="fas fa-check"></i> Custom Catering Packages</li>
+                        <li><i class="fas fa-check"></i> Dedicated Event Coordinator</li>
+                        <li><i class="fas fa-check"></i> High-Speed Wi-Fi & AV Fallback</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="openGigi('events')">Inquire for Events</button>
+                </div>
+            </div>
+
+            <!-- Mixology Bar -->
+            <div class="facility-detail card">
+                <div class="facility-img">
+                    <img src="assets/image/menu/main dishes & drinks/liqour-1.jpg" alt="Mixology Bar">
+                </div>
+                <div class="facility-info">
+                    <h2>Mixology & Craft Bar</h2>
+                    <p>Explore a world of flavor at our signature bar. Our mixologists craft artisanal cocktails and
+                        serve a wide range of premium global spirits and local craft beers.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Signature Garden Cocktails</li>
+                        <li><i class="fas fa-check"></i> Wide Craft Beer Selection</li>
+                        <li><i class="fas fa-check"></i> Premium Bottle Service</li>
+                        <li><i class="fas fa-check"></i> Happy Hour Experiences</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="openGigi('drinks')">Explore Drinks</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Green Sports Gardens. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/gigi.js"></script>
+    <script>
+        function toggleGigi() { window.gigiAssistant && window.gigiAssistant.toggleWindow(); }
+    </script>
+</body>
+
+</html>
