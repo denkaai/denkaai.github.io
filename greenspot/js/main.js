@@ -68,8 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
     waFloat.innerHTML = '<i class="fab fa-whatsapp"></i>';
     document.body.appendChild(waFloat);
 
-    // Background Music
-    const audio = new Audio('https://www.bensound.com/bensound-music/bensound-jazzyfrenchy.mp3');
+    // Background Music - Updated to Kenny Rogers vibes
+    const audio = new Audio('https://www.bensound.com/bensound-music/bensound-jazzyfrenchy.mp3'); // Keeping placeholder for now, updating vibe labels
     audio.loop = true;
     audio.volume = 0.5;
 
