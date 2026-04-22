@@ -49,7 +49,16 @@ const Router = {
         appContainer.classList.add('page-loading');
         
         try {
-            const fetchPath = isGithubPages ? `${basePath}/${template}` : `/${template}`;
+            const isLocalFile = window.location.protocol === 'file:';
+            let fetchPath = isGithubPages ? `${basePath}/${template}` : `/${template}`;
+            
+            if (isLocalFile) {
+                // For local files, we need relative paths
+                const depth = window.location.pathname.split('/').length - (isGithubPages ? 3 : 2);
+                const prefix = '../'.repeat(Math.max(0, depth));
+                fetchPath = prefix + template;
+            }
+            
             const response = await fetch(fetchPath.replace('//', '/'));
             
             if (!response.ok) throw new Error(`Failed to load template: ${template}`);

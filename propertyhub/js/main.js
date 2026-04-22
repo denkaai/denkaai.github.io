@@ -7,16 +7,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Navbar Scroll Effect
     const nav = document.querySelector('nav');
+    // Initialize Router
+    Router.init();
+
+    // Listen for SPA page changes to re-init theme and other listeners
+    window.addEventListener('page-changed', (e) => {
+        initTheme();
+        initNavbar();
+    });
+
+    initNavbar();
+});
+
+function initNavbar() {
+    const nav = document.querySelector('nav');
     if (nav) {
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
         });
     }
-
-    // Router.init() is ready for production deployment
-    // Router.init(); 
-});
+}
 
 export const showToast = (message, type = 'success') => {
     const toast = document.createElement('div');

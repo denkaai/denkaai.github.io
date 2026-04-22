@@ -1,7 +1,7 @@
 import Store from './store.js';
 import { playSuccessSound, triggerCoinAnimation } from './notifications.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+export default function init() {
     const user = Store.getCurrentUser();
     if (!user || user.role !== 'tenant') {
         window.location.href = '../login/';
@@ -20,15 +20,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const landlord = Store.getData(Store.USERS).find(u => u.id === tenantInfo.landlord_id);
 
     // Update UI
-    document.getElementById('pay-prop').textContent = property.name;
-    document.getElementById('pay-unit').textContent = unit.unit_number;
-    document.getElementById('pay-landlord').textContent = landlord ? landlord.name : 'Unknown';
-    document.getElementById('pay-amount').textContent = `KES ${parseFloat(unit.rent_amount).toLocaleString()}`;
+    const payPropEl = document.getElementById('pay-prop');
+    if (payPropEl) {
+        payPropEl.textContent = property.name;
+        document.getElementById('pay-unit').textContent = unit.unit_number;
+        document.getElementById('pay-landlord').textContent = landlord ? landlord.name : 'Unknown';
+        document.getElementById('pay-amount').textContent = `KES ${parseFloat(unit.rent_amount).toLocaleString()}`;
 
-    document.getElementById('start-payment-btn').addEventListener('click', () => {
-        makePayment(user, property, unit);
-    });
-});
+        document.getElementById('start-payment-btn').addEventListener('click', () => {
+            makePayment(user, property, unit);
+        });
+    }
+}
+
+// Support for traditional non-SPA loading
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
 
 function makePayment(user, property, unit) {
     // Flutterwave Standard Checkout

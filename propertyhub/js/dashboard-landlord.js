@@ -1,19 +1,42 @@
 import Store from './store.js';
 import { showToast } from './main.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+export default function init() {
     const user = Store.getCurrentUser();
     if (!user || user.role !== 'landlord') {
         window.location.href = '../login/';
         return;
     }
 
-    document.getElementById('user-name').textContent = `Welcome, ${user.name}`;
+    const userNameEl = document.getElementById('user-name');
+    if (userNameEl) userNameEl.textContent = `Welcome, ${user.name}`;
     
     // Logout Logic
-    document.getElementById('logout-btn').addEventListener('click', () => {
-        Store.logout();
-        window.location.href = '../';
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            Store.logout();
+            window.location.href = '../';
+        });
+    }
+
+    // Sidebar Navigation
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const view = link.getAttribute('data-view');
+            
+            // Update active state
+            sidebarLinks.forEach(l => {
+                l.classList.remove('btn-primary', 'active');
+                l.classList.add('btn-outline');
+            });
+            link.classList.remove('btn-outline');
+            link.classList.add('btn-primary', 'active');
+            
+            switchView(view);
+        });
     });
 
     // Add Property Logic
@@ -33,7 +56,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     renderDashboard();
-});
+}
+
+// Support for traditional non-SPA loading
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+
+function switchView(view) {
+    // For now, we'll just show/hide sections or update content
+    // In a more complex app, this could trigger sub-routes
+    console.log('Switching to view:', view);
+    
+    // Basic implementation: only 'overview' and 'properties' are currently structured
+    // We'll expand this to filter the display
+    if (view === 'properties') {
+        document.getElementById('requests-section').style.display = 'none';
+        // Ensure stats are hidden or minimized if desired
+    } else if (view === 'overview') {
+        renderDashboard();
+    } else {
+        showToast(`View "${view}" is coming soon!`, 'info');
+    }
+}
 
 function renderDashboard() {
     renderStats();

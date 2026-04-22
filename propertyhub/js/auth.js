@@ -1,6 +1,6 @@
 import Store from './store.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+export default function init() {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
 
@@ -37,7 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-});
+}
+
+// Support for traditional non-SPA loading
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
 
 function redirectUser(role) {
     // Determine the base path (handle root vs subfolders)

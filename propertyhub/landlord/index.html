@@ -137,16 +137,17 @@
         </div>
     </nav>
 
-    <div class="dashboard-layout">
-        <div class="sidebar glass">
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-                <a href="#" class="btn btn-primary" style="justify-content: flex-start; gap: 15px;"><i class="fas fa-th-large"></i> <span>Overview</span></a>
-                <a href="#" class="btn btn-outline" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-building"></i> <span>Properties</span></a>
-                <a href="#" class="btn btn-outline" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-users"></i> <span>Tenants</span></a>
-                <a href="#" class="btn btn-outline" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-envelope"></i> <span>Messages</span></a>
-                <a href="#" class="btn btn-outline" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-history"></i> <span>Payments</span></a>
+    <main id="app">
+        <div class="dashboard-layout">
+            <div class="sidebar glass">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="#" class="btn btn-primary sidebar-link active" data-view="overview" style="justify-content: flex-start; gap: 15px;"><i class="fas fa-th-large"></i> <span>Overview</span></a>
+                    <a href="#" class="btn btn-outline sidebar-link" data-view="properties" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-building"></i> <span>Properties</span></a>
+                    <a href="#" class="btn btn-outline sidebar-link" data-view="tenants" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-users"></i> <span>Tenants</span></a>
+                    <a href="#" class="btn btn-outline sidebar-link" data-view="messages" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-envelope"></i> <span>Messages</span></a>
+                    <a href="#" class="btn btn-outline sidebar-link" data-view="payments" style="justify-content: flex-start; border: none; color: inherit; gap: 15px;"><i class="fas fa-history"></i> <span>Payments</span></a>
+                </div>
             </div>
-        </div>
 
         <main class="main-content">
             <!-- KPIs -->

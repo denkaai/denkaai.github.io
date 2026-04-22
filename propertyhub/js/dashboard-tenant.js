@@ -1,23 +1,34 @@
 import Store from './store.js';
 import { showToast } from './main.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+export default function init() {
     const user = Store.getCurrentUser();
     if (!user || user.role !== 'tenant') {
         window.location.href = '../login/';
         return;
     }
 
-    document.getElementById('user-name').textContent = `Welcome, ${user.name}`;
+    const userNameEl = document.getElementById('user-name');
+    if (userNameEl) userNameEl.textContent = `Welcome, ${user.name}`;
     
     // Logout Logic
-    document.getElementById('logout-btn').addEventListener('click', () => {
-        Store.logout();
-        window.location.href = '../';
-    });
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            Store.logout();
+            window.location.href = '../';
+        });
+    }
 
     renderDashboard();
-});
+}
+
+// Support for traditional non-SPA loading
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
 
 function renderDashboard() {
     const user = Store.getCurrentUser();
