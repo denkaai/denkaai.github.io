@@ -29,29 +29,58 @@ const Router = {
     },
 
     async handleRoute() {
-        const path = window.location.pathname.replace('/propertyhub', '').replace(/\/$/, '') || '/';
-        const template = this.routes[path] || this.routes['/'];
+        // Detect base path dynamically
+        const isGithubPages = window.location.hostname.includes('github.io');
+        const basePath = isGithubPages ? '/propertyhub' : '';
+        
+        let path = window.location.pathname;
+        if (basePath && path.startsWith(basePath)) {
+            path = path.replace(basePath, '');
+        }
+        
+        path = path.replace(/\/$/, '') || '/';
+        
+        // Match route or fallback to home
+        const templateKey = this.routes[path] ? path : '/';
+        const template = this.routes[templateKey];
+        
+        // Add loading state
+        const appContainer = document.getElementById('app') || document.body;
+        appContainer.classList.add('page-loading');
         
         try {
-            // In a real SPA, we'd fetch partials. Here we might fetch the full page and extract <body>
-            const response = await fetch(template);
-            const html = await response.text();
+            const fetchPath = isGithubPages ? `${basePath}/${template}` : `/${template}`;
+            const response = await fetch(fetchPath.replace('//', '/'));
             
+            if (!response.ok) throw new Error(`Failed to load template: ${template}`);
+            
+            const html = await response.text();
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
+            
+            // Extract main content or body
             const newContent = doc.querySelector('main') || doc.body;
             
-            // Update the main container
-            const appContainer = document.getElementById('app') || document.body;
+            // Update title
+            document.title = doc.title || 'PropertyHub KE';
+            
+            // Update the container
             appContainer.innerHTML = newContent.innerHTML;
+            appContainer.className = doc.body.className; // Sync body classes (like dark-mode)
             
             // Execute page specific logic
             this.initPageScripts(path);
             
-            // Scroll to top
+            // Re-initialize global components (like theme toggle)
+            window.dispatchEvent(new CustomEvent('page-changed', { detail: { path } }));
+            
             window.scrollTo(0, 0);
         } catch (error) {
             console.error('Routing error:', error);
+            // Fallback: if SPA fails, try a traditional redirect if not already on index
+            if (path !== '/') window.location.href = isGithubPages ? `${basePath}/` : '/';
+        } finally {
+            appContainer.classList.remove('page-loading');
         }
     },
 
