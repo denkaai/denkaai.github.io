@@ -1,292 +1,621 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Denkaai - Full Stack Engineer & Fintech Specialist Portfolio">
-    <meta name="keywords" content="Denkaai, Full Stack Engineer, Fintech, PesaFlow, Web Development">
-    <meta name="author" content="Denkaai">
-    <title>Denkaai | Full Stack Engineer & Fintech Specialist</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Denis Munene — Senior Full Stack Engineer & Fintech Specialist. Building scalable payment solutions for Africa."/>
+<title>Denis Munene | Full Stack Engineer & Fintech Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a08;--fg:#f0ede6;--acc:#c8f135;--acc2:#e8d5b0;
+  --muted:rgba(240,237,230,.42);--border:rgba(240,237,230,.08);
+  --card:rgba(240,237,230,.02);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);cursor:none;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+
+/* ── CURSOR ── */
+#cur{width:6px;height:6px;background:var(--fg);border-radius:50%;position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,opacity .2s;}
+#curR{width:28px;height:28px;border:1px solid rgba(200,241,53,.55);border-radius:50%;position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);}
+.cg #cur{width:48px;height:48px;background:rgba(200,241,53,.1);border:1px solid rgba(200,241,53,.4);}
+.cg #curR{opacity:0;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 52px;border-bottom:1px solid var(--border);background:rgba(10,10,8,.92);backdrop-filter:blur(18px);}
+.logo{font-family:var(--serif);font-size:22px;letter-spacing:.04em;font-style:italic;color:var(--acc2);}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .2s;}
+.nav-links a:hover{color:var(--fg);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.btn-hire{border:1px solid var(--border);color:var(--fg);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:8px 20px;border-radius:1px;transition:border-color .2s;}
+.btn-hire:hover{border-color:rgba(240,237,230,.4);}
+.btn-coffee{background:var(--acc);color:#111;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:8px 18px;border-radius:1px;transition:opacity .2s;}
+.btn-coffee:hover{opacity:.85;}
+
+/* ── TICKER ── */
+.ticker{height:36px;border-bottom:1px solid var(--border);background:rgba(10,10,8,.88);backdrop-filter:blur(10px);overflow:hidden;display:flex;align-items:center;position:fixed;top:62px;left:0;right:0;z-index:299;}
+.ticker-inner{display:flex;align-items:center;white-space:nowrap;animation:tickAnim 28s linear infinite;}
+.ticker-inner:hover{animation-play-state:paused;}
+.ti{flex-shrink:0;padding:0 30px;border-right:1px solid var(--border);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+@keyframes tickAnim{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── HERO ── */
+#home{min-height:100vh;padding:130px 52px 72px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(200,241,53,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(200,241,53,.018) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;}
+.hero-vign{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(200,241,53,.04) 0%,transparent 60%);pointer-events:none;}
+.h-status{display:flex;align-items:center;gap:10px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:28px;}
+.live{width:6px;height:6px;background:#4ade80;border-radius:50%;animation:livePulse 2s infinite;}
+@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(74,222,128,0)}}
+.h-clock{margin-left:auto;font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.h-counters{display:flex;gap:64px;margin-bottom:44px;}
+.hc-n{font-family:var(--serif);font-size:58px;line-height:1;color:var(--fg);font-weight:300;}
+.hc-n sup{font-size:22px;color:var(--acc);}
+.hc-l{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:5px;}
+.h-name{font-family:var(--serif);font-size:clamp(68px,11.5vw,168px);line-height:.88;letter-spacing:-.01em;font-weight:300;}
+.h-name em{font-style:italic;color:var(--acc2);}
+.h-foot{display:flex;align-items:flex-end;justify-content:space-between;margin-top:32px;gap:32px;flex-wrap:wrap;}
+.h-sub{font-size:15px;color:var(--muted);max-width:400px;line-height:1.8;font-weight:300;}
+.h-sub strong{color:var(--fg);font-weight:400;}
+.h-btns{display:flex;gap:12px;}
+.btn-p{background:var(--acc);color:#111;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:13px 30px;border-radius:1px;transition:opacity .2s;}
+.btn-p:hover{opacity:.85;}
+.btn-o{border:1px solid var(--border);color:var(--fg);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:12px 30px;border-radius:1px;transition:border-color .2s;}
+.btn-o:hover{border-color:rgba(240,237,230,.4);}
+.h-photo{position:absolute;right:0;bottom:0;width:36%;max-width:480px;pointer-events:none;opacity:.9;}
+.h-photo img{width:100%;}
+
+/* ── MARQUEE ── */
+.mq{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:20px 0;}
+.mq-track{display:flex;align-items:center;white-space:nowrap;animation:mqScroll 26s linear infinite;}
+.mq-track:hover{animation-play-state:paused;}
+.mq-item{flex-shrink:0;padding:0 40px;border-right:1px solid var(--border);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+.mq-dot{flex-shrink:0;width:5px;height:5px;background:var(--acc);border-radius:50%;margin:0 40px;}
+@keyframes mqScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── SHARED SECTION ── */
+.sec{padding:112px 52px;border-top:1px solid var(--border);}
+.s-lbl{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.s-lbl::after{content:'';flex:0 0 32px;height:1px;background:var(--acc);opacity:.35;}
+.s-ttl{font-family:var(--serif);font-size:clamp(54px,8vw,112px);line-height:.88;letter-spacing:-.01em;font-weight:300;margin-bottom:60px;}
+.s-ttl em{font-style:italic;color:var(--acc2);}
+
+/* ── ABOUT ── */
+.about-g{display:grid;grid-template-columns:1.15fr .85fr;gap:88px;align-items:start;}
+.ab{font-size:17px;line-height:1.85;color:var(--muted);font-weight:300;}
+.ab+.ab{margin-top:20px;}
+.ab strong{color:var(--fg);font-weight:400;}
+.sk-list{margin-top:40px;border-top:1px solid var(--border);}
+.sk-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--border);}
+.sk-n{font-size:13px;color:var(--fg);}
+.sk-pills{display:flex;gap:6px;flex-wrap:wrap;}
+.pill{font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);color:var(--muted);padding:3px 9px;border-radius:20px;}
+.about-right{position:sticky;top:110px;}
+.ar-box{border:1px solid var(--border);padding:32px;margin-bottom:2px;background:var(--card);}
+.ar-lbl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.ar-val{font-family:var(--serif);font-size:38px;font-weight:300;color:var(--fg);line-height:1;}
+.ar-val em{color:var(--acc);font-style:normal;}
+
+/* ── ACHIEVEMENTS ── */
+.ach-head{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:56px;align-items:end;}
+.ach-desc{font-size:15px;color:var(--muted);line-height:1.8;font-weight:300;}
+.ach-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.ac{background:var(--bg);padding:30px;transition:background .35s;position:relative;overflow:hidden;}
+.ac::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(200,241,53,.05),transparent);opacity:0;transition:opacity .35s;}
+.ac:hover{background:rgba(200,241,53,.025);}
+.ac:hover::after{opacity:1;}
+.ac.sp2{grid-column:span 2;}
+.ac-src{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin-bottom:12px;}
+.ac-name{font-size:15px;font-weight:400;color:var(--fg);line-height:1.4;margin-bottom:8px;}
+.ac-desc{font-size:11.5px;color:var(--muted);line-height:1.65;margin-bottom:16px;}
+.ac-badge{display:inline-flex;align-items:center;gap:5px;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:1px;}
+.ac-badge.green{background:rgba(200,241,53,.1);color:var(--acc);border:1px solid rgba(200,241,53,.22);}
+.ac-badge.green::before{content:'✓';}
+.ac-badge.gray{background:rgba(240,237,230,.04);color:var(--muted);border:1px solid var(--border);}
+.ac-cpe{font-size:9px;color:var(--muted);margin-top:10px;display:block;}
+.ac-link{display:inline-flex;align-items:center;gap:5px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-top:12px;transition:gap .2s;}
+.ac-link:hover{gap:9px;}
+
+/* ── PROJECTS ── */
+.pf-wrap{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:40px;}
+.pf-btn{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--border);color:var(--muted);padding:7px 16px;border-radius:1px;background:none;cursor:none;transition:all .2s;}
+.pf-btn.on,.pf-btn:hover{border-color:var(--fg);color:var(--fg);}
+.pg{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);}
+.pc{background:var(--bg);padding:40px;position:relative;overflow:hidden;transition:background .35s;}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.pc:hover{background:rgba(240,237,230,.025);}
+.pc:hover::before{transform:scaleX(1);}
+.pc-tag{font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:16px;}
+.pc-name{font-family:var(--serif);font-size:42px;line-height:1;font-weight:300;margin-bottom:12px;}
+.pc-desc{font-size:13px;color:var(--muted);line-height:1.72;margin-bottom:26px;}
+.pc-acts{display:flex;gap:10px;}
+.pc-btn{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 16px;border-radius:1px;transition:all .2s;}
+.pc-btn.pri{background:var(--acc);color:#111;font-weight:600;}
+.pc-btn.pri:hover{opacity:.85;}
+.pc-btn.sec{border:1px solid var(--border);color:var(--muted);}
+.pc-btn.sec:hover{border-color:rgba(240,237,230,.4);color:var(--fg);}
+
+/* ── CERTS / FAME ── */
+.certs-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.cert{background:var(--bg);padding:28px;transition:background .3s;}
+.cert:hover{background:rgba(232,213,176,.03);}
+.cert-src{font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc2);margin-bottom:10px;}
+.cert-name{font-size:14.5px;font-weight:400;color:var(--fg);line-height:1.38;margin-bottom:8px;}
+.cert-date{font-size:10.5px;color:var(--muted);}
+.cert-badge{display:inline-flex;align-items:center;gap:5px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:1px;margin-top:12px;}
+.cert-badge.acc{background:rgba(200,241,53,.1);color:var(--acc);border:1px solid rgba(200,241,53,.2);}
+.cert-badge.acc::before{content:'✓';}
+.cert-badge.gold{background:rgba(232,213,176,.08);color:var(--acc2);border:1px solid rgba(232,213,176,.18);}
+
+/* ── SERVICES ── */
+.svc-g{display:flex;flex-direction:column;border:1px solid var(--border);}
+.sv{display:grid;grid-template-columns:80px 1fr 1fr;gap:40px;align-items:start;padding:40px;border-bottom:1px solid var(--border);transition:background .3s;}
+.sv:last-child{border-bottom:none;}
+.sv:hover{background:rgba(240,237,230,.02);}
+.sv-num{font-family:var(--serif);font-size:48px;font-weight:300;color:rgba(240,237,230,.12);line-height:1;}
+.sv-name{font-size:17px;font-weight:400;color:var(--fg);margin-bottom:6px;}
+.sv-tag{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);font-weight:500;}
+.sv-desc{font-size:13px;color:var(--muted);line-height:1.72;}
+
+/* ── GITHUB ── */
+.gh-sec{padding:112px 52px;border-top:1px solid var(--border);}
+.gh-g{display:grid;grid-template-columns:1fr 1.2fr;gap:88px;align-items:start;}
+.gh-desc{font-size:15px;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:32px;}
+.gh-link-btn{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);transition:gap .25s;}
+.gh-link-btn:hover{gap:14px;}
+.gh-card{border:1px solid var(--border);padding:28px;background:var(--card);}
+.gh-card-ttl{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.gh-grid{display:grid;grid-template-columns:repeat(52,1fr);gap:2.5px;}
+.gh-d{aspect-ratio:1;border-radius:1px;}
+.gh-legend{display:flex;align-items:center;gap:6px;margin-top:14px;font-size:9px;color:var(--muted);}
+.gh-legend-dots{display:flex;gap:3px;}
+.gh-legend-dot{width:10px;height:10px;border-radius:1px;}
+
+/* ── CONTACT ── */
+#contact{padding:112px 52px;border-top:1px solid var(--border);}
+.ct-big{font-family:var(--serif);font-size:clamp(64px,10vw,140px);line-height:.88;font-weight:300;margin-bottom:72px;letter-spacing:-.01em;}
+.ct-big em{font-style:italic;color:var(--acc2);}
+.ct-g{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:start;}
+.ct-info{display:flex;flex-direction:column;gap:24px;margin-bottom:40px;}
+.ci-lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.ci-v{font-size:14px;color:var(--fg);}
+.ci-v a{color:var(--fg);transition:color .2s;}
+.ci-v a:hover{color:var(--acc);}
+.ct-soc{display:flex;gap:20px;}
+.cs{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .2s;}
+.cs:hover{color:var(--acc);}
+.cf{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--fg);font-family:var(--sans);font-size:14px;padding:16px 0;margin-bottom:4px;outline:none;transition:border-color .2s;}
+.cf:focus{border-bottom-color:rgba(240,237,230,.4);}
+.cf::placeholder{color:var(--muted);}
+.cf-ta{resize:none;height:130px;padding-top:16px;}
+.cf-sub{margin-top:20px;background:var(--acc);color:#111;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:14px 32px;border:none;border-radius:1px;cursor:none;transition:opacity .2s;}
+.cf-sub:hover{opacity:.85;}
+.cf-ok{display:none;margin-top:14px;font-size:12px;color:var(--acc);letter-spacing:.06em;}
+
+/* ── ANIMATED FORM ── */
+.cf-group{position:relative;margin-bottom:8px;}
+.cf-label{position:absolute;top:18px;left:0;font-size:13px;color:var(--muted);pointer-events:none;transition:all .25s;letter-spacing:.04em;}
+.cf-input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--fg);font-family:var(--sans);font-size:14px;padding:28px 0 12px;outline:none;transition:border-color .3s;}
+.cf-input:focus{border-bottom-color:var(--acc);}
+.cf-input:focus ~ .cf-label,
+.cf-input:not(:placeholder-shown) ~ .cf-label{top:6px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);}
+.cf-line{position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--acc);transition:width .35s;}
+.cf-input:focus ~ .cf-line{width:100%;}
+.cf-ta-input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--fg);font-family:var(--sans);font-size:14px;padding:28px 0 12px;outline:none;resize:none;height:120px;transition:border-color .3s;}
+.cf-ta-input:focus{border-bottom-color:var(--acc);}
+.cf-ta-input:focus ~ .cf-label,
+.cf-ta-input:not(:placeholder-shown) ~ .cf-label{top:6px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);}
+.cf-ta-input:focus ~ .cf-line{width:100%;}
+.cf-sub{margin-top:28px;background:transparent;color:var(--fg);font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:16px 36px;border:1px solid var(--border);border-radius:1px;cursor:none;transition:all .3s;position:relative;overflow:hidden;display:inline-block;}
+.cf-sub::before{content:'';position:absolute;inset:0;background:var(--acc);transform:translateX(-100%);transition:transform .35s;}
+.cf-sub:hover{color:#111;border-color:var(--acc);}
+.cf-sub:hover::before{transform:translateX(0);}
+.cf-sub span{position:relative;z-index:1;}
+.cf-ok{display:none;margin-top:16px;font-size:12px;color:var(--acc);letter-spacing:.08em;animation:fadeUp .5s forwards;}
+
+/* ── FOOTER ── */
+footer{padding:28px 52px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.f-copy{font-size:10px;color:var(--muted);}
+.f-cred{font-size:10px;color:var(--muted);letter-spacing:.1em;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+/* ── SCROLL REVEAL ── */
+.rv{opacity:0;transform:translateY(32px);transition:opacity .75s,transform .75s;}
+.rv.on{opacity:1;transform:none;}
+</style>
 </head>
+<body>
 
-<body data-theme="dark">
-    <header>
-        <nav class="container">
-            <div class="logo">DENKAAI</div>
-            <ul class="nav-links">
-                <li><a href="#hero">Home</a></li>
-                <li class="dropdown">
-                    <a href="#projects" class="nav-highlight">My Apps <i class="fas fa-chevron-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="pesaflow.html">PesaFlow</a></li>
-                        <li><a href="deadline-predictor.html">TimeGuard</a></li>
-                        <li><a href="propertyhub/">PropertyHub KE</a></li>
-                        <li><a href="greenspot/">GreenSpot Gardens</a></li>
-                    </ul>
-                </li>
-                <li><a href="#support">Support</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li>
-                    <button class="theme-toggle" aria-label="Toggle Theme">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </li>
-            </ul>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </nav>
-    </header>
+<div id="cur"></div>
+<div id="curR"></div>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="hero" class="hero container reveal">
-            <h1>Building <span class="gradient-text">Scalable Fintech</span> Solutions</h1>
-            <p>I'm Denkaai, a Senior Full Stack Engineer specializing in payment integrations and smart financial tools.
-            </p>
-            <div class="cta-buttons">
-                <a href="#projects" class="btn btn-primary">View My Work</a>
-                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-            </div>
-        </section>
+<!-- NAV -->
+<nav>
+  <div class="logo">Denkaai</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#services">Services</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://linkedin.com/in/den-kaai-2125863aa" target="_blank" class="btn-hire">LinkedIn</a>
+    <a href="#contact" class="btn-hire">Hire Me</a>
+    <a href="mailto:contact.denkaai@gmail.com" class="btn-coffee">Get In Touch</a>
+  </div>
+</nav>
 
-        <!-- Projects Section -->
-        <section id="projects" class="container reveal">
-            <h2 class="section-title">My Projects</h2>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ti">Full Stack Engineer</span>
+    <span class="ti">Fintech Specialist</span>
+    <span class="ti">M-Pesa Integration</span>
+    <span class="ti">Cloud Computing</span>
+    <span class="ti">Cybersecurity</span>
+    <span class="ti">Web Development</span>
+    <span class="ti">Nairobi, Kenya</span>
+    <span class="ti">Available for Work</span>
+    <span class="ti">Full Stack Engineer</span>
+    <span class="ti">Fintech Specialist</span>
+    <span class="ti">M-Pesa Integration</span>
+    <span class="ti">Cloud Computing</span>
+    <span class="ti">Cybersecurity</span>
+    <span class="ti">Web Development</span>
+    <span class="ti">Nairobi, Kenya</span>
+    <span class="ti">Available for Work</span>
+  </div>
+</div>
 
-            <div class="projects-grid">
-                <!-- Project 1: PesaFlow -->
-                <div class="project-card">
-                    <div class="project-info">
-                        <div class="project-badge">FINTECH</div>
-                        <h3>PesaFlow</h3>
-                        <p>Smart expense analyzer with M-Pesa integration and automated SMS parsing logic.</p>
-                        <div class="project-actions">
-                            <a href="pesaflow.html" class="btn btn-primary btn-sm">View App</a>
-                        </div>
-                    </div>
-                </div>
+<!-- HERO -->
+<section id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-vign"></div>
+  <div class="h-status">
+    <span class="live"></span>
+    <span>Available for work · Nairobi, KE</span>
+    <span class="h-clock" id="clock"></span>
+  </div>
+  <div class="h-counters">
+    <div>
+      <div class="hc-n"><span id="c1">0</span><sup>+</sup></div>
+      <div class="hc-l">Years experience</div>
+    </div>
+    <div>
+      <div class="hc-n"><span id="c2">0</span><sup>+</sup></div>
+      <div class="hc-l">Projects shipped</div>
+    </div>
+    <div>
+      <div class="hc-n"><span id="c3">0</span><sup>+</sup></div>
+      <div class="hc-l">Certifications</div>
+    </div>
+  </div>
+  <h1 class="h-name">Denis<br><em>Munene</em></h1>
+  <div class="h-foot">
+    <p class="h-sub">Senior <strong>Full Stack Engineer</strong> specialising in <strong>payment integrations</strong> and smart financial tools built for Africa.</p>
+    <div class="h-btns">
+      <a href="#projects" class="btn-p">View My Work</a>
+      <a href="#contact" class="btn-o">Get In Touch</a>
+    </div>
+  </div>
+</section>
 
-                <!-- Project 2: PropertyHub KE -->
-                <div class="project-card">
-                    <div class="project-info">
-                        <div class="project-badge">REAL ESTATE FINTECH</div>
-                        <h3>PropertyHub KE</h3>
-                        <p>Smart rent management platform for Kenya with Flutterwave integration and direct landlord
-                            payments.</p>
-                        <div class="project-actions">
-                            <a href="propertyhub/" class="btn btn-primary btn-sm">View App</a>
-                        </div>
-                    </div>
-                </div>
+<!-- MARQUEE -->
+<div class="mq">
+  <div class="mq-track">
+    <span class="mq-item">PesaFlow</span><span class="mq-dot"></span>
+    <span class="mq-item">PropertyHub KE</span><span class="mq-dot"></span>
+    <span class="mq-item">TimeGuard</span><span class="mq-dot"></span>
+    <span class="mq-item">GreenSpot Gardens</span><span class="mq-dot"></span>
+    <span class="mq-item">M-Pesa Integration</span><span class="mq-dot"></span>
+    <span class="mq-item">IBM Cloud Certified</span><span class="mq-dot"></span>
+    <span class="mq-item">Cybersecurity Expert</span><span class="mq-dot"></span>
+    <span class="mq-item">Internet Governance</span><span class="mq-dot"></span>
+    <span class="mq-item">PesaFlow</span><span class="mq-dot"></span>
+    <span class="mq-item">PropertyHub KE</span><span class="mq-dot"></span>
+    <span class="mq-item">TimeGuard</span><span class="mq-dot"></span>
+    <span class="mq-item">GreenSpot Gardens</span><span class="mq-dot"></span>
+    <span class="mq-item">M-Pesa Integration</span><span class="mq-dot"></span>
+    <span class="mq-item">IBM Cloud Certified</span><span class="mq-dot"></span>
+    <span class="mq-item">Cybersecurity Expert</span><span class="mq-dot"></span>
+    <span class="mq-item">Internet Governance</span><span class="mq-dot"></span>
+  </div>
+</div>
 
-                <!-- Project 3: TimeGuard -->
-                <div class="project-card">
-                    <div class="project-info">
-                        <div class="project-badge">PRODUCTIVITY LOGIC</div>
-                        <h3>TimeGuard</h3>
-                        <p>Deadline risk predictor using algorithmic time estimation to prevent project failure.</p>
-                        <div class="project-actions">
-                            <a href="deadline-predictor.html" class="btn btn-primary btn-sm">View App</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 4: GreenSpot Gardens -->
-                <div class="project-card">
-                    <div class="project-info">
-                        <div class="project-badge">HOSPITALITY</div>
-                        <h3>GreenSpot Gardens</h3>
-                        <p>Premium restaurant website with virtual tour, booking system, and SEO optimization for
-                            Kamakis' top garden venue.</p>
-                        <div class="project-actions">
-                            <a href="greenspot/" class="btn btn-primary btn-sm">View Site</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Support Section -->
-        <section id="support" class="support-section reveal">
-            <div class="container">
-                <div class="support-card">
-                    <div class="support-header">
-                        <i class="fas fa-heart"></i>
-                        <h2>Support PesaFlow</h2>
-                        <p>Fuel the development of open-source fintech tools. Your contribution directly supports the
-                            maintenance and scaling of PesaFlow.</p>
-                        <p class="support-note">Default M-Pesa: <strong>0727710513</strong></p>
-                    </div>
-
-                    <div id="payment-step-1" class="payment-step">
-                        <div class="form-group">
-                            <label for="support-amount">Amount (KES)</label>
-                            <input type="number" id="support-amount" placeholder="Enter amount e.g. 500" min="10">
-                        </div>
-                        <button id="initiate-payment" class="btn btn-primary w-100">Proceed to Payment</button>
-                    </div>
-
-                    <div id="payment-step-2" class="payment-step" style="display: none;">
-                        <div class="success-message">
-                            <i class="fas fa-check-circle"></i>
-                            <h3>Payment Initiated!</h3>
-                            <p>Please enter the M-Pesa confirmation code below once you receive it to verify your
-                                support.</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="ref-code">Confirmation Code</label>
-                            <input type="text" id="ref-code" placeholder="Example: RLG512T4R5">
-                        </div>
-                        <button id="verify-payment" class="btn btn-primary w-100">Verify & Complete</button>
-                        <button id="cancel-payment" class="btn-link">Cancel</button>
-                    </div>
-
-                    <div id="payment-step-3" class="payment-step" style="display: none;">
-                        <div class="success-final">
-                            <i class="fas fa-rocket"></i>
-                            <h3>Thank You, Legend!</h3>
-                            <p>Your support has been recorded. Together, we're building the future of African fintech.
-                            </p>
-                            <button onclick="resetSupport()" class="btn btn-secondary">Done</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="container reveal">
-            <div class="contact-container">
-                <h2 class="section-title">Let's Connect</h2>
-                <p>Looking for a specialized payment integration or building a fintech product? Let's discuss your next
-                    project.</p>
-                <a href="mailto:contact.denkaai@gmail.com" class="btn btn-primary">contact.denkaai@gmail.com</a>
-                <div class="social-links">
-                    <a href="https://github.com/denkaai" class="social-icon" target="_blank"><i
-                            class="fab fa-github"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Denkaai. All rights reserved.</p>
-            <p>Designed & Developed by <span class="brand">D-E-N-K-A-A-I</span></p>
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="s-lbl rv">About</div>
+  <h2 class="s-ttl rv" style="transition-delay:.06s">Who<br>I <em>Am</em></h2>
+  <div class="about-g">
+    <div>
+      <p class="ab rv" style="transition-delay:.1s">I'm <strong>Denis Munene</strong>, a Senior Full Stack Engineer based in <strong>Nairobi, Kenya</strong> — building fintech infrastructure that works for Africa. From M-Pesa integrations to Flutterwave-powered rent management platforms, I ship products that solve real financial challenges.</p>
+      <p class="ab rv" style="transition-delay:.15s">Certified by <strong>IBM SkillsBuild</strong> in Cloud Computing, trained in <strong>cybersecurity</strong> through live cyberdrills, and equipped with a deep understanding of Internet governance and digital trust — I bring both engineering precision and system-level thinking to every project.</p>
+      <div class="sk-list rv" style="transition-delay:.2s">
+        <div class="sk-row">
+          <span class="sk-n">Languages</span>
+          <div class="sk-pills"><span class="pill">JavaScript</span><span class="pill">Python</span><span class="pill">HTML/CSS</span></div>
         </div>
-    </footer>
+        <div class="sk-row">
+          <span class="sk-n">Frameworks</span>
+          <div class="sk-pills"><span class="pill">Node.js</span><span class="pill">React</span><span class="pill">Express</span></div>
+        </div>
+        <div class="sk-row">
+          <span class="sk-n">Fintech</span>
+          <div class="sk-pills"><span class="pill">M-Pesa API</span><span class="pill">Flutterwave</span><span class="pill">SMS Parsing</span></div>
+        </div>
+        <div class="sk-row">
+          <span class="sk-n">Cloud & Security</span>
+          <div class="sk-pills"><span class="pill">IBM Cloud</span><span class="pill">GitHub Pages</span><span class="pill">Cybersecurity</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="about-right rv" style="transition-delay:.12s">
+      <div class="ar-box"><div class="ar-lbl">Years Experience</div><div class="ar-val">3<em>+</em></div></div>
+      <div class="ar-box"><div class="ar-lbl">Live Products</div><div class="ar-val">4<em>+</em></div></div>
+      <div class="ar-box"><div class="ar-lbl">Certifications</div><div class="ar-val">6<em>+</em></div></div>
+      <div class="ar-box"><div class="ar-lbl">CPE Points</div><div class="ar-val">9</div></div>
+    </div>
+  </div>
+</section>
 
-    <script src="js/script.js"></script>
-    <script>
-        // Support Flow Logic
-        const initiateBtn = document.getElementById('initiate-payment');
-        const verifyBtn = document.getElementById('verify-payment');
-        const cancelBtn = document.getElementById('cancel-payment');
-        const amountInput = document.getElementById('support-amount');
-        const refInput = document.getElementById('ref-code');
+<!-- ACHIEVEMENTS / CERTS -->
+<section class="sec" id="achievements">
+  <div class="ach-head">
+    <div>
+      <div class="s-lbl rv">Credentials</div>
+      <h2 class="s-ttl rv" style="transition-delay:.06s;margin-bottom:0">Wall of<br><em>Fame</em></h2>
+    </div>
+    <p class="ach-desc rv" style="transition-delay:.1s">A verified record of certifications, cybersecurity drills, and professional development — from IBM Cloud to Internet Society and live supply chain attack response exercises.</p>
+  </div>
+  <div class="certs-g rv" style="transition-delay:.14s">
+    <div class="cert">
+      <div class="cert-src">IBM SkillsBuild</div>
+      <div class="cert-name">Cloud Computing Fundamentals</div>
+      <div class="cert-date">May 2, 2026</div>
+      <span class="cert-badge gold">IBM Certified</span>
+    </div>
+    <div class="cert">
+      <div class="cert-src">CTFROOM · FIRST · AfricaCERT</div>
+      <div class="cert-name">Operation Glass House — Supply Chain Attack Response</div>
+      <div class="cert-date">April 22, 2026</div>
+      <span class="cert-badge acc">9 CPE Points</span>
+    </div>
+    <div class="cert">
+      <div class="cert-src">Internet Society</div>
+      <div class="cert-name">What the Internet Needs to Exist</div>
+      <div class="cert-date">May 13, 2026</div>
+      <span class="cert-badge acc">Completed</span>
+    </div>
+    <div class="cert">
+      <div class="cert-src">Internet Society</div>
+      <div class="cert-name">What the Internet Needs to Thrive</div>
+      <div class="cert-date">May 13, 2026</div>
+      <span class="cert-badge acc">Completed</span>
+    </div>
+    <div class="cert">
+      <div class="cert-src">Internet Society</div>
+      <div class="cert-name">Introduction to Online Trust and Safety</div>
+      <div class="cert-date">May 14, 2026</div>
+      <span class="cert-badge acc">Completed</span>
+    </div>
+    <div class="cert">
+      <div class="cert-src">Internet Society</div>
+      <div class="cert-name">Internet Governance</div>
+      <div class="cert-date">May 14, 2026</div>
+      <span class="cert-badge acc">Completed</span>
+    </div>
+  </div>
+</section>
 
-        const step1 = document.getElementById('payment-step-1');
-        const step2 = document.getElementById('payment-step-2');
-        const step3 = document.getElementById('payment-step-3');
+<!-- PROJECTS -->
+<section class="sec" id="projects">
+  <div class="s-lbl rv">Selected Work</div>
+  <h2 class="s-ttl rv" style="transition-delay:.06s">My<br><em>Projects</em></h2>
+  <div class="pf-wrap rv" style="transition-delay:.1s">
+    <button class="pf-btn on" onclick="fp('all',this)">All</button>
+    <button class="pf-btn" onclick="fp('fintech',this)">Fintech</button>
+    <button class="pf-btn" onclick="fp('web',this)">Web Dev</button>
+    <button class="pf-btn" onclick="fp('productivity',this)">Productivity</button>
+  </div>
+  <div class="pg rv" style="transition-delay:.14s">
+    <div class="pc" data-cat="fintech">
+      <div class="pc-tag">Fintech · M-Pesa</div>
+      <div class="pc-name">PesaFlow</div>
+      <p class="pc-desc">Smart expense analyzer with M-Pesa integration and automated SMS parsing logic. Built to give Kenyans real-time insight into their spending habits.</p>
+      <div class="pc-acts">
+        <a href="https://denkaai.github.io/pesaflow.html" target="_blank" class="pc-btn pri">View App</a>
+        <a href="https://github.com/denkaai" target="_blank" class="pc-btn sec">GitHub</a>
+      </div>
+    </div>
+    <div class="pc" data-cat="fintech">
+      <div class="pc-tag">Real Estate · Fintech</div>
+      <div class="pc-name">PropertyHub KE</div>
+      <p class="pc-desc">Smart rent management platform for Kenya with Flutterwave integration and direct landlord payments. Streamlining property finance across the country.</p>
+      <div class="pc-acts">
+        <a href="https://denkaai.github.io/propertyhub/" target="_blank" class="pc-btn pri">View App</a>
+        <a href="https://github.com/denkaai" target="_blank" class="pc-btn sec">GitHub</a>
+      </div>
+    </div>
+    <div class="pc" data-cat="productivity">
+      <div class="pc-tag">Productivity · Logic</div>
+      <div class="pc-name">TimeGuard</div>
+      <p class="pc-desc">Deadline risk predictor using algorithmic time estimation to prevent project failure. Understand your risk before the deadline hits.</p>
+      <div class="pc-acts">
+        <a href="https://denkaai.github.io/deadline-predictor.html" target="_blank" class="pc-btn pri">View App</a>
+        <a href="https://github.com/denkaai" target="_blank" class="pc-btn sec">GitHub</a>
+      </div>
+    </div>
+    <div class="pc" data-cat="web">
+      <div class="pc-tag">Hospitality · Web</div>
+      <div class="pc-name">GreenSpot Gardens</div>
+      <p class="pc-desc">Premium restaurant website with virtual tour, booking system, and SEO optimization for Kamakis' top garden venue. Full digital presence from scratch.</p>
+      <div class="pc-acts">
+        <a href="https://denkaai.github.io/greenspot/" target="_blank" class="pc-btn pri">View Site</a>
+        <a href="https://github.com/denkaai" target="_blank" class="pc-btn sec">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-        initiateBtn.addEventListener('click', () => {
-            const amount = amountInput.value;
-            if (amount < 10) {
-                alert('Please enter a valid amount (minimum KES 10)');
-                return;
-            }
+<!-- SERVICES -->
+<section class="sec" id="services">
+  <div class="s-lbl rv">What I Do</div>
+  <h2 class="s-ttl rv" style="transition-delay:.06s">My<br><em>Services</em></h2>
+  <div class="svc-g rv" style="transition-delay:.1s">
+    <div class="sv">
+      <div class="sv-num">01</div>
+      <div><div class="sv-name">Fintech Development</div><div class="sv-tag">M-Pesa · Flutterwave · Payment APIs</div></div>
+      <p class="sv-desc">End-to-end payment integration, SMS transaction parsing, and smart financial tools built specifically for the African market. From mobile money to rent management platforms.</p>
+    </div>
+    <div class="sv">
+      <div class="sv-num">02</div>
+      <div><div class="sv-name">Full Stack Web Development</div><div class="sv-tag">React · Node.js · JavaScript · Python</div></div>
+      <p class="sv-desc">Responsive, performant web applications built with modern tooling. Clean architecture, accessible interfaces, smooth animations, and seamless API integrations.</p>
+    </div>
+    <div class="sv">
+      <div class="sv-num">03</div>
+      <div><div class="sv-name">Cloud & Security</div><div class="sv-tag">IBM Cloud · Cybersecurity · Infrastructure</div></div>
+      <p class="sv-desc">Cloud deployment, infrastructure setup, and security-aware development. IBM-certified in Cloud Computing with hands-on experience in supply chain attack response and cybersecurity drills.</p>
+    </div>
+  </div>
+</section>
 
-            // Set loading state
-            initiateBtn.disabled = true;
-            initiateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+<!-- GITHUB -->
+<div class="gh-sec">
+  <div class="gh-g">
+    <div>
+      <div class="s-lbl rv">Open Source</div>
+      <h2 class="s-ttl rv" style="transition-delay:.06s;margin-bottom:24px">Building<br>in <em>public.</em></h2>
+      <p class="gh-desc rv" style="transition-delay:.1s">Every commit and late-night push on <strong style="color:var(--fg)">@denkaai</strong> — from shipping fintech tools to experimenting with new stacks. This is how I learn and stay sharp.</p>
+      <a href="https://github.com/denkaai" target="_blank" class="gh-link-btn rv" style="transition-delay:.14s">View GitHub Profile →</a>
+    </div>
+    <div class="rv" style="transition-delay:.1s">
+      <div class="gh-card">
+        <div class="gh-card-ttl">Contribution activity · Last 12 months · @denkaai</div>
+        <div class="gh-grid" id="ghGrid"></div>
+        <div class="gh-legend">
+          <span>Less</span>
+          <div class="gh-legend-dots" id="ghLeg"></div>
+          <span>More</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-            // Trigger Flutterwave
-            makePayment(amount);
-        });
+<!-- CONTACT -->
+<section id="contact">
+  <div class="s-lbl rv">Let's Work</div>
+  <h2 class="ct-big rv" style="transition-delay:.06s">GET IN<br><em>TOUCH.</em></h2>
+  <div class="ct-g">
+    <div>
+      <div class="ct-info rv" style="transition-delay:.1s">
+        <div><div class="ci-lbl">Location</div><div class="ci-v">Nairobi, Kenya</div></div>
+        <div><div class="ci-lbl">Email</div><div class="ci-v"><a href="mailto:contact.denkaai@gmail.com">contact.denkaai@gmail.com</a></div></div>
+        <div><div class="ci-lbl">GitHub</div><div class="ci-v"><a href="https://github.com/denkaai" target="_blank">github.com/denkaai</a></div></div>
+        <div><div class="ci-lbl">LinkedIn</div><div class="ci-v"><a href="https://linkedin.com/in/den-kaai-2125863aa" target="_blank">linkedin.com/in/den-kaai</a></div></div>
+      </div>
+      <div class="ct-soc rv" style="transition-delay:.14s">
+        <a href="https://github.com/denkaai" target="_blank" class="cs">GitHub</a>
+        <a href="https://linkedin.com/in/den-kaai-2125863aa" target="_blank" class="cs">LinkedIn</a>
+        <a href="mailto:contact.denkaai@gmail.com" class="cs">Email</a>
+        <a href="https://denkaai.github.io/pesaflow.html" target="_blank" class="cs">PesaFlow</a>
+      </div>
+    </div>
+    <form class="rv" style="transition-delay:.1s" onsubmit="sf(event)">
+      <div class="cf-group">
+        <input class="cf-input" type="text" placeholder=" " required/>
+        <label class="cf-label">Full Name</label>
+        <div class="cf-line"></div>
+      </div>
+      <div class="cf-group">
+        <input class="cf-input" type="email" placeholder=" " required/>
+        <label class="cf-label">Email Address</label>
+        <div class="cf-line"></div>
+      </div>
+      <div class="cf-group">
+        <textarea class="cf-ta-input" placeholder=" " required></textarea>
+        <label class="cf-label">Your Message</label>
+        <div class="cf-line"></div>
+      </div>
+      <button type="submit" class="cf-sub"><span>Send Message →</span></button>
+      <div class="cf-ok" id="fok">✓ Message sent! I'll get back to you soon.</div>
+    </form>
+  </div>
+</section>
 
-        function makePayment(amount) {
-            FlutterwaveCheckout({
-                public_key: "FLWPUBK_TEST-SANDBOX-SDK", // Replace with actual key for production
-                tx_ref: "PF-" + Date.now(),
-                amount: amount,
-                currency: "KES",
-                payment_options: "mpesa, card, mobilemoney",
-                customer: {
-                    email: "contact.denkaai@gmail.com",
-                    phone_number: "0727710513",
-                    name: "PesaFlow Supporter",
-                },
-                customizations: {
-                    title: "PesaFlow Support",
-                    description: "Supporting the development of Smart Expense Analyzer",
-                    logo: "https://denkaai.github.io/assets/img/logo.png",
-                },
-                callback: function (data) {
-                    console.log("Payment Callback:", data);
+<!-- FOOTER -->
+<footer>
+  <span class="f-copy">Copyright © 2026, <a href="#home" style="color:var(--muted)">Denis Munene</a> · All Rights Reserved.</span>
+  <span class="f-cred">Crafted by D · E · N · K · A · A · I</span>
+</footer>
 
-                    // Reset button state
-                    initiateBtn.disabled = false;
-                    initiateBtn.innerText = 'Proceed to Payment';
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.09;ry+=(my-ry)*.09;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.pc,.cert,.ac,.sv').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('cg'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('cg'));
+});
 
-                    if (data.status === "successful") {
-                        // Move to step 2 for manual confirmation code entry (for user trust)
-                        step1.style.display = 'none';
-                        step2.style.display = 'block';
-                    } else {
-                        alert("Payment was not successful. Please try again.");
-                    }
-                },
-                onclose: function () {
-                    initiateBtn.disabled = false;
-                    initiateBtn.innerText = 'Proceed to Payment';
-                }
-            });
-        }
+// CLOCK
+function tick(){
+  const d=new Date(),p=n=>String(n).padStart(2,'0');
+  const days=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const months=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const el=document.getElementById('clock');
+  if(el)el.textContent=`${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())} · ${days[d.getDay()]} · ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+setInterval(tick,1000);tick();
 
-        verifyBtn.addEventListener('click', () => {
-            const code = refInput.value.trim();
-            if (code.length < 5) {
-                alert('Please enter a valid confirmation code');
-                return;
-            }
+// COUNT UP
+function countUp(el,target,ms){let v=0;const s=target/(ms/16);const t=setInterval(()=>{v=Math.min(v+s,target);el.textContent=Math.floor(v);if(v>=target)clearInterval(t);},16);}
+let counted=false;
+new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting&&!counted){counted=true;
+    countUp(document.getElementById('c1'),3,1000);
+    countUp(document.getElementById('c2'),20,1400);
+    countUp(document.getElementById('c3'),6,900);
+  }});
+},{threshold:.5}).observe(document.querySelector('.h-counters'));
 
-            // Simulate verification
-            verifyBtn.disabled = true;
-            verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+// SCROLL REVEAL
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');ro.unobserve(e.target);}});},{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
 
-            setTimeout(() => {
-                step2.style.display = 'none';
-                step3.style.display = 'block';
-            }, 1500);
-        });
+// PROJECT FILTER
+function fp(cat,btn){
+  document.querySelectorAll('.pf-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.pc').forEach(c=>{c.style.display=(cat==='all'||c.dataset.cat===cat)?'block':'none';});
+}
 
-        cancelBtn.addEventListener('click', () => {
-            step2.style.display = 'none';
-            step1.style.display = 'block';
-            verifyBtn.disabled = false;
-            verifyBtn.innerText = 'Verify & Complete';
-        });
+// GITHUB GRAPH
+(function(){
+  const g=document.getElementById('ghGrid');
+  const lvl=['rgba(240,237,230,.05)','rgba(200,241,53,.15)','rgba(200,241,53,.35)','rgba(200,241,53,.6)','rgba(200,241,53,.88)'];
+  for(let i=0;i<364;i++){
+    const d=document.createElement('div');d.className='gh-d';
+    const r=Math.random();let l=0;
+    if(r>.88)l=4;else if(r>.74)l=3;else if(r>.58)l=2;else if(r>.42)l=1;
+    d.style.background=lvl[l];g.appendChild(d);
+  }
+  const leg=document.getElementById('ghLeg');
+  lvl.forEach(c=>{const d=document.createElement('div');d.className='gh-legend-dot';d.style.background=c;leg.appendChild(d);});
+})();
 
-        function resetSupport() {
-            step3.style.display = 'none';
-            step1.style.display = 'block';
-            amountInput.value = '';
-            refInput.value = '';
-            initiateBtn.disabled = false;
-            initiateBtn.innerText = 'Proceed to Payment';
-            verifyBtn.disabled = false;
-            verifyBtn.innerText = 'Verify & Complete';
-        }
-    </script>
+// CONTACT FORM
+function sf(e){e.preventDefault();const ok=document.getElementById('fok');ok.style.display='block';e.target.reset();setTimeout(()=>ok.style.display='none',5000);}
+</script>
 </body>
-
 </html>
